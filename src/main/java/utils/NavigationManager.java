@@ -31,15 +31,15 @@ public class NavigationManager {
         navigationPanel.setLayout(new BoxLayout(navigationPanel, BoxLayout.X_AXIS));
         navigationPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        navigationPanel.add(buttonFactory.createIconButton("img/icons/home.png", e -> openHomeUI()));
+        navigationPanel.add(buttonFactory.createIconButton("src/main/java/img/icons/home.png", e -> openHomeUI()));
         navigationPanel.add(Box.createHorizontalGlue());
-        navigationPanel.add(buttonFactory.createIconButton("img/icons/search.png", e -> exploreUI()));
+        navigationPanel.add(buttonFactory.createIconButton("src/main/java/img/icons/search.png", e -> exploreUI()));
         navigationPanel.add(Box.createHorizontalGlue());
-        navigationPanel.add(buttonFactory.createIconButton("img/icons/add.png", e -> ImageUploadUI()));
+        navigationPanel.add(buttonFactory.createIconButton("src/main/java/img/icons/add.png", e -> ImageUploadUI()));
         navigationPanel.add(Box.createHorizontalGlue());
-        navigationPanel.add(buttonFactory.createIconButton("img/icons/heart.png", e -> notificationsUI()));
+        navigationPanel.add(buttonFactory.createIconButton("src/main/java/img/icons/heart.png", e -> notificationsUI()));
         navigationPanel.add(Box.createHorizontalGlue());
-        navigationPanel.add(buttonFactory.createIconButton("img/icons/profile.png", e -> openProfileUI()));
+        navigationPanel.add(buttonFactory.createIconButton("src/main/java/img/icons/profile.png", e -> openProfileUI()));
 
         return navigationPanel;
     }
@@ -57,7 +57,7 @@ public class NavigationManager {
        String loggedInUsername = "";
 
         // Read the logged-in user's username from users.txt
-    try (BufferedReader reader = Files.newBufferedReader(Paths.get("data", "users.txt"))) {
+    try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "users.txt"))) {
         String line = reader.readLine();
         if (line != null) {
             loggedInUsername = line.split(":")[0].trim();

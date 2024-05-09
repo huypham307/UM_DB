@@ -5,12 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/credentials.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/credentials.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/following.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/following.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/notifications.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/notifications.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/users.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/users.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/img/image_details.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/img/image_details.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mediahandler/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mediahandler/ImageLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/NotificationsUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/NotificationsUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserProfileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserProfileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserRelationshipManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserRelationshipManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/BioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/BioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/FollowStat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/FollowStat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,9 +35,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2fxTiHYXmf0bouVtdTjbckbenHO" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -33,6 +48,7 @@
   "keyToString": {
     "Application.DatabaseConnector.executor": "Run",
     "Application.Program.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
@@ -47,11 +63,23 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-322ed176" />
       </set>
     </attachedChunks>
   </component>
@@ -64,6 +92,7 @@
       <option name="presentableId" value="Default" />
       <updated>1714741856973</updated>
       <workItem from="1714741857839" duration="326000" />
+      <workItem from="1715001986599" duration="8791000" />
     </task>
     <servers />
   </component>

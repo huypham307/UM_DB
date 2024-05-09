@@ -11,7 +11,7 @@ import java.util.List;
 
 
 public class ImageLoader {
-    private static final String IMAGE_DIR = "img/uploaded";
+    private static final String IMAGE_DIR = "src/main/java/img/uploaded";
 
     public List<ImageIcon> loadImages(String userName, int GRID_IMAGE_SIZE) {
         List<ImageIcon> images = new ArrayList<>();

@@ -43,7 +43,7 @@ public class User {
     public List<Picture> getPictures() { return pictures; }
 
     public int getPostCount() {
-        Path imageDetailsFilePath = Paths.get("img", "image_details.txt");
+        Path imageDetailsFilePath = Paths.get("src/main/java/img", "image_details.txt");
         postsCount = 0;
         try (BufferedReader reader = Files.newBufferedReader(imageDetailsFilePath)) {
             String line;

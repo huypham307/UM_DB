@@ -16,7 +16,7 @@ public class BioRepository {
 
     public String readBio(){
         bio = "";
-        final Path bioDetailsFilePath = Paths.get("data", "credentials.txt");
+        final Path bioDetailsFilePath = Paths.get("src/main/java/data", "credentials.txt");
 
         bio = "";
         try (BufferedReader bioDetailsReader = Files.newBufferedReader(bioDetailsFilePath)) {

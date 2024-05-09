@@ -8,7 +8,7 @@ import datahandler.FileHandler;
 
 public class UserRelationshipManager {
 
-    private final String followersFilePath = "data/following.txt";
+    private final String followersFilePath = "src/main/java/data/following.txt";
     private final FileHandler fileHandler;
 
     public UserRelationshipManager(FileHandler fileHandler) {

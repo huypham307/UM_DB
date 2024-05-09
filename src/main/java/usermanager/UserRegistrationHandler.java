@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 public class UserRegistrationHandler extends JFrame {
 
     private JTextField txtUsername = SignUpUI.txtUsername;
-    private final String credentialsFilePath = "data/credentials.txt";
+    private final String credentialsFilePath = "src/main/java/data/credentials.txt";
     private final String profilePhotoStoragePath = "img/storage/profile/";
 
     public boolean doesUsernameExist(String username) {
@@ -61,7 +61,7 @@ public class UserRegistrationHandler extends JFrame {
     public void saveCredentials(String username, String password, String bio) {
         Encryptor encryptor = Encryptor.getInstance();
         password = encryptor.encrypt(password);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/credentials.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/data/credentials.txt", true))) {
             writer.write(username + ":" + password + ":" + bio);
             writer.newLine();
         } catch (IOException e) {

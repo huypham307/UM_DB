@@ -12,7 +12,7 @@ public class UserProfileManager{
 
     public String readUserName(){
         // Read the logged-in user's username from users.txt
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("data", "users.txt"))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "users.txt"))) {
             String line = reader.readLine();
             if (line != null) {
                 loggedInUsername = line.split(":")[0].trim();
