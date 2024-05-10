@@ -8,5 +8,5 @@ fafa: Mystar
 Username1: Mystar; Lorin; kidprobambo123
 quack1: Mystar; Xylo
 quacksta: Mystar
-quack2: Mystar; quack1; Xylo
+quack2: Mystar; quack1; Xylo; Zara
 quack10: Mystar; Xylo

@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/ConnectionAndStatement.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/SessionsDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/SessionsDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/datahandler/DatabaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/datahandler/DatabaseConnector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/datahandler/Encryptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/datahandler/Encryptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,29 +39,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DatabaseConnector.executor": "Run",
-    "Application.Encryptor.executor": "Debug",
-    "Application.Program.executor": "Run",
-    "Application.SessionsDAOImpl.executor": "Run",
-    "Application.UserDAOImpl.executor": "Debug",
-    "Application.userDAOImpl.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DatabaseConnector.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Encryptor.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Program.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SessionsDAOImpl.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UserDAOImpl.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.userDAOImpl.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Program" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Program" />
@@ -121,26 +113,29 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java</url>
-          <line>18</line>
-          <properties class="usermanager.UserAuthenticator" method="verifyCredentials">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
+          <line>66</line>
+          <properties class="ui.InstagramProfileUI" method="configureUserProfile">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java</url>
-          <line>26</line>
-          <properties class="database.UserDAOImpl" method="fecthUserData">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
+          <line>49</line>
+          <properties class="ui.InstagramProfileUI" method="&lt;init&gt;">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="3" />
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java</url>
@@ -148,9 +143,14 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="10" />
+          <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

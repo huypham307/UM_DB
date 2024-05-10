@@ -2,6 +2,7 @@ package ui;
 import javax.swing.*;
 
 import datahandler.Encryptor;
+import usermanager.User;
 import usermanager.UserAuthenticator;
 import utils.HeaderPanelManager;
 
@@ -21,7 +22,6 @@ public class SignInUI extends JFrame {
     private JPanel photoPanel;
     private JPanel fieldsPanel;
     private JPanel buttonPanel;
-    UserAuthenticator user = new UserAuthenticator();
 
     public SignInUI() {
         setTitle("Quackstagram - Sign In");
@@ -110,14 +110,17 @@ public class SignInUI extends JFrame {
         String enteredUsername = txtUsername.getText();
         String enteredPassword = txtPassword.getText();
         System.out.println(enteredUsername+" <-> "+enteredPassword);
-        if (user.verifyCredentials(enteredUsername, enteredPassword)) {
+
+        UserAuthenticator userAuthenticator = UserAuthenticator.getInstance();
+
+        if (userAuthenticator.verifyCredentials(enteredUsername, enteredPassword)) {
             System.out.println("User successfully logged in!");
             // Close the SignUpUI frame
         dispose();
 
         // Open the SignInUI frame
         SwingUtilities.invokeLater(() -> {
-            InstagramProfileUI profileUI = new InstagramProfileUI(user.newUser);
+            InstagramProfileUI profileUI = new InstagramProfileUI(userAuthenticator.getAuthorizedUser());
             profileUI.setVisible(true);
         });
         } else {
