@@ -5,19 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/FollowDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/FollowDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/PostDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entities/Image.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/credentials.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/credentials.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/notifications.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/notifications.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +24,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
@@ -60,7 +56,7 @@
     "Application.userDAOImpl.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "karol",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
