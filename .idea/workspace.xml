@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/FollowDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/FollowDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/PostDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entities/Image.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/credentials.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/credentials.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/notifications.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/notifications.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/ImageDataDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/ImageDataDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Image.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +44,7 @@
     "Application.DatabaseConnector.executor": "Run",
     "Application.Encryptor.executor": "Debug",
     "Application.FollowDAOImpl.executor": "Run",
+    "Application.ImageDataDAOImpl.executor": "Run",
     "Application.Program.executor": "Run",
     "Application.SessionsDAOImpl.executor": "Run",
     "Application.UserDAOImpl.executor": "Run",
@@ -174,6 +165,15 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/database/FollowDAOImpl.java</url>
+          <line>29</line>
+          <properties class="database.FollowDAOImpl" method="fetchFollower">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>

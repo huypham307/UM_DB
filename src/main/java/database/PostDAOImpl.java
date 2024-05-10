@@ -21,16 +21,17 @@ public class PostDAOImpl implements PostDAO {
         return instance;
     }
 
-    public void insert(int userID, int likerID, int imageID, Timestamp time){
-        String query = "INSERT INTO posts (userID, likerID, imageID, time) VALUES (?,?,?,?)";
+    public void insert(int userID, int likerID, String imageID, Timestamp time, String filePath){
+        String query = "INSERT INTO posts (userID, likerID, imageID, time, filePath) VALUES (?,?,?,?,?)";
         Connection conn;
         try{
             conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, userID);
             pstmt.setInt(2, likerID);
-            pstmt.setInt(3,imageID);
+            pstmt.setString(3,imageID);
             pstmt.setTimestamp(4, time);
+            pstmt.setString(1,filePath);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

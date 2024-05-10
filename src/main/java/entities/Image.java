@@ -9,10 +9,11 @@ public class Image {
     String imageBio;
     Timestamp postTime;
 
-    public Image(String imageID, int user_id, Timestamp postTime){
+    public Image(String imageID, int user_id, String imageBio, Timestamp postTime){
         this.imageID = imageID;
         this.user_id = user_id;
         this.postTime = postTime;
+        this.imageBio = imageBio;
     }
 
     public String getImageID() {
