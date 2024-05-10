@@ -10,7 +10,7 @@ public class FollowStat {
     private int followerCount;
 
     public FollowStat(String userName){
-        this.followingFilePath = Paths.get("data", "following.txt");
+        this.followingFilePath = Paths.get("src/main/java/data", "following.txt");
         calculateFollow(userName);
     }
 

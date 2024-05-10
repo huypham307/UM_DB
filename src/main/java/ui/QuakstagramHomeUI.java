@@ -181,7 +181,7 @@ public class QuakstagramHomeUI extends JFrame {
     }
 
     private void handleLikeAction(String imageId, JLabel likesLabel) {
-        Path detailsPath = Paths.get("img", "image_details.txt");
+        Path detailsPath = Paths.get("src/main/java/img", "image_details.txt");
         String currentUser = getCurrentUser();
         if (currentUser.isEmpty()) {
             LOGGER.severe("Current user could not be determined.");
@@ -202,7 +202,7 @@ public class QuakstagramHomeUI extends JFrame {
     }
 
     private String getCurrentUser() {
-        try (BufferedReader userReader = Files.newBufferedReader(Paths.get("data", "users.txt"))) {
+        try (BufferedReader userReader = Files.newBufferedReader(Paths.get("src/main/java/data", "users.txt"))) {
             String line = userReader.readLine();
             if (line != null) {
                 return line.split(":")[0].trim();
@@ -265,7 +265,7 @@ public class QuakstagramHomeUI extends JFrame {
     //Writing data into notifications.txt
     private void recordLikeNotification(String currentUser, String imageOwner, String imageId, String timestamp) {
         String notification = String.format("%s; %s; %s; %s\n", imageOwner, currentUser, imageId, timestamp);
-        try (BufferedWriter notificationWriter = Files.newBufferedWriter(Paths.get("data", "notifications.txt"), StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+        try (BufferedWriter notificationWriter = Files.newBufferedWriter(Paths.get("src/main/java/data", "notifications.txt"), StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
             notificationWriter.write(notification);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Failed to record like notification.", e);
@@ -284,13 +284,13 @@ public class QuakstagramHomeUI extends JFrame {
         String[][] tempData = new String[100][]; // Assuming a maximum of 100 posts for simplicity
         int count = 0;
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("img", "image_details.txt"))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/img", "image_details.txt"))) {
             String line;
             while ((line = reader.readLine()) != null && count < tempData.length) {
                 String[] details = line.split(", ");
                 String imagePoster = details[1].split(": ")[1];
                 if (followedUsers.contains(imagePoster)) {
-                    String imagePath = "img/uploaded/" + details[0].split(": ")[1] + ".png";
+                    String imagePath = "src/main/java/img/uploaded/" + details[0].split(": ")[1] + ".png";
                     String description = details[2].split(": ")[1];
                     String likes = "Likes: " + details[4].split(": ")[1];
                     tempData[count++] = new String[]{imagePoster, description, likes, imagePath};
@@ -304,7 +304,7 @@ public class QuakstagramHomeUI extends JFrame {
     }
 
     private String loadCurrentUser() {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("data", "users.txt"))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "users.txt"))) {
             String line = reader.readLine();
             if (line != null) {
                 return line.split(":")[0].trim();
@@ -317,7 +317,7 @@ public class QuakstagramHomeUI extends JFrame {
 
     private String getFollowedUsers(String currentUser) {
         StringBuilder followedUsers = new StringBuilder();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("data", "following.txt"))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "following.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith(currentUser + ":")) {

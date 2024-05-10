@@ -20,7 +20,7 @@ public class SearchPanelUI extends JFrame {
     private JPanel headerPanel;
     private JPanel navigationPanel;
     String searchString;
-    private final String credentialsFilePath = "data/credentials.txt";
+    private final String credentialsFilePath = "src/main/java/data/credentials.txt";
     ArrayList<String> usernameList;
 
     public SearchPanelUI(){

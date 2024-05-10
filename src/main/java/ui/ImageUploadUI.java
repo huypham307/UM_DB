@@ -113,7 +113,7 @@ public class ImageUploadUI extends JFrame {
                 String fileExtension = getFileExtension(selectedFile);
                 String newFileName = username + "_" + imageId + "." + fileExtension;
     
-                Path destPath = Paths.get("img", "uploaded", newFileName);
+                Path destPath = Paths.get("src/main/java/img", "uploaded", newFileName);
                 Files.copy(selectedFile.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
     
                 // Save the bio and image ID to a text file
@@ -155,7 +155,7 @@ public class ImageUploadUI extends JFrame {
     }
     
     private int getNextImageId(String username) throws IOException {
-        Path storageDir = Paths.get("img", "uploaded"); // Ensure this is the directory where images are saved
+        Path storageDir = Paths.get("src/main/java/img", "uploaded"); // Ensure this is the directory where images are saved
         if (!Files.exists(storageDir)) {
             Files.createDirectories(storageDir);
         }
@@ -182,7 +182,7 @@ public class ImageUploadUI extends JFrame {
     }
     
     private void saveImageInfo(String imageId, String username, String bio) throws IOException {
-        Path infoFilePath = Paths.get("img", "image_details.txt");
+        Path infoFilePath = Paths.get("src/main/java/img", "image_details.txt");
         if (!Files.exists(infoFilePath)) {
             Files.createFile(infoFilePath);
         }
@@ -205,7 +205,7 @@ public class ImageUploadUI extends JFrame {
     }
 
    private String readUsername() throws IOException {
-    Path usersFilePath = Paths.get("data", "users.txt");
+    Path usersFilePath = Paths.get("src/main/java/data", "users.txt");
     try (BufferedReader reader = Files.newBufferedReader(usersFilePath)) {
         String line = reader.readLine();
         if (line != null) {

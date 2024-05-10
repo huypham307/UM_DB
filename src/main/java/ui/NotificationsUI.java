@@ -64,7 +64,7 @@ public class NotificationsUI extends JFrame {
 
     private String readUsername() {
         String currentUsername = "";
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("data", "users.txt"))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "users.txt"))) {
             String line = reader.readLine();
             if (line != null) {
                 currentUsername = line.split(":")[0].trim();
@@ -77,7 +77,7 @@ public class NotificationsUI extends JFrame {
 
     private List<String> readNotifications(String currentUsername) {
         List<String> notifications = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("data", "notifications.txt"))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "notifications.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");

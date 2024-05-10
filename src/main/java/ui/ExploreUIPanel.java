@@ -43,7 +43,7 @@ public class ExploreUIPanel {
 
     private JPanel createImageGridPanel(JFrame window, JPanel headerPanel, JPanel navigationPanel) {
         JPanel imageGridPanel = new JPanel(new GridLayout(0, 3, 2, 2)); // 3 columns, auto rows
-        loadImageGrid(imageGridPanel, "img/uploaded", window, headerPanel, navigationPanel);
+        loadImageGrid(imageGridPanel, "src/main/java/img/uploaded", window, headerPanel, navigationPanel);
         return imageGridPanel;
     }
 
@@ -92,7 +92,7 @@ public class ExploreUIPanel {
         String bio = "";
         String timestampString = "";
         int likes = 0;
-        Path detailsPath = Paths.get("img", "image_details.txt");
+        Path detailsPath = Paths.get("src/main/java/img", "image_details.txt");
         try (Stream<String> lines = Files.lines(detailsPath)) {
             String details = lines.filter(line -> line.contains("ImageID: " + imageId)).findFirst().orElse("");
             if (!details.isEmpty()) {
