@@ -10,7 +10,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import database.UserDAO;
+import database.UserDAOImpl;
 import datahandler.Encryptor;
+import exception.UserNotFoundException;
 import ui.SignUpUI;
 
 import javax.swing.*;
@@ -19,32 +22,27 @@ import java.awt.image.BufferedImage;
 
 public class UserRegistrationHandler extends JFrame {
 
-    private JTextField txtUsername = SignUpUI.txtUsername;
-    private final String credentialsFilePath = "src/main/java/data/credentials.txt";
-    private final String profilePhotoStoragePath = "img/storage/profile/";
+
+    private final String profilePhotoStoragePath = "/Users/mac/IdeaProjects/QuackstagramDB/src/main/java/img/storage/profile/";
 
     public boolean doesUsernameExist(String username) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(credentialsFilePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith(username + ":")) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        try{
+            User existingUser = UserDAOImpl.getInstance().fecthUserData(username);
+            return true;
+        }catch (UserNotFoundException e){
+            return false;
         }
-        return false;
     }
 
     // Method to handle profile picture upload
     public void handleProfilePictureUpload(Component parentComponent) {
         JFileChooser fileChooser = new JFileChooser();
+        String username = SignUpUI.getCurrentSignUpUser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         fileChooser.setFileFilter(filter);
         if (fileChooser.showOpenDialog(parentComponent) == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            saveProfilePicture(selectedFile, txtUsername.getText());
+            saveProfilePicture(selectedFile, username);
         }
     }
 
@@ -53,6 +51,7 @@ public class UserRegistrationHandler extends JFrame {
             BufferedImage image = ImageIO.read(file);
             File outputFile = new File(profilePhotoStoragePath + username + ".png");
             ImageIO.write(image, "png", outputFile);
+            System.out.println("Write image successfully");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,15 +60,7 @@ public class UserRegistrationHandler extends JFrame {
     public void saveCredentials(String username, String password, String bio) {
         Encryptor encryptor = Encryptor.getInstance();
         password = encryptor.encrypt(password);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/data/credentials.txt", true))) {
-            writer.write(username + ":" + password + ":" + bio);
-            writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-
+        UserDAOImpl.getInstance().insert(username,password,bio);
     }
-
-
 }

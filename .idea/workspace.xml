@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/FollowDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/FollowDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/PostDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/entities/Image.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/credentials.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/credentials.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/notifications.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/notifications.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,29 +49,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.DatabaseConnector.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Encryptor.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.Program.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SessionsDAOImpl.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserDAOImpl.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.userDAOImpl.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.DatabaseConnector.executor": "Run",
+    "Application.Encryptor.executor": "Debug",
+    "Application.FollowDAOImpl.executor": "Run",
+    "Application.Program.executor": "Run",
+    "Application.SessionsDAOImpl.executor": "Run",
+    "Application.UserDAOImpl.executor": "Run",
+    "Application.userDAOImpl.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Program" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Program" />
@@ -119,7 +130,7 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
           <line>66</line>
           <properties class="ui.InstagramProfileUI" method="configureUserProfile">
@@ -128,7 +139,7 @@
           </properties>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
           <line>49</line>
           <properties class="ui.InstagramProfileUI" method="&lt;init&gt;">
@@ -137,21 +148,52 @@
           </properties>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="4" />
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/SignUpUI.java</url>
+          <line>139</line>
+          <properties class="ui.SignUpUI" method="onRegisterClicked">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/SignUpUI.java</url>
+          <line>175</line>
+          <properties class="ui.SignUpUI" method="getCurrentSignUpUser">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java</url>
+          <line>37</line>
+          <properties class="usermanager.UserRegistrationHandler" method="handleProfilePictureUpload">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
           <line>69</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
           <line>54</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/SignUpUI.java</url>
+          <line>158</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="22" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

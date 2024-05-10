@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 public class UserDAOImpl implements UserDAO {
-    String query = "SELECT * FROM users u WHERE username = ?";
     User user;
     static UserDAOImpl userDAOImpl;
     private final DataSource dataSource;
@@ -25,6 +24,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User fecthUserData(String username) {
+        String query = "SELECT * FROM users u WHERE username = ?";
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -42,6 +42,23 @@ public class UserDAOImpl implements UserDAO {
         }
         return user;
     }
+
+    public void insert(String username, String password, String bio){
+        String query = "INSERT INTO users (username, password, bio) VALUES (?,?,?)";
+        Connection conn;
+        try{
+            conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.setString(2,password);
+            pstmt.setString(3,bio);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     public static void main(String[] args) {
         User user = UserDAOImpl.getInstance().fecthUserData("Xylo");

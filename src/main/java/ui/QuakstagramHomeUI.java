@@ -2,6 +2,8 @@ package ui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import usermanager.User;
+import usermanager.UserAuthenticator;
 import utils.HeaderPanelManager;
 import utils.NavigationManager;
 
@@ -12,10 +14,12 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.net.Authenticator;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -182,7 +186,8 @@ public class QuakstagramHomeUI extends JFrame {
 
     private void handleLikeAction(String imageId, JLabel likesLabel) {
         Path detailsPath = Paths.get("src/main/java/img", "image_details.txt");
-        String currentUser = getCurrentUser();
+        //Track the user who liked the post
+        String currentUser = UserAuthenticator.getInstance().getAuthorizedUser().getUsername();
         if (currentUser.isEmpty()) {
             LOGGER.severe("Current user could not be determined.");
             return;
@@ -190,7 +195,7 @@ public class QuakstagramHomeUI extends JFrame {
 
         boolean updated = false;
         StringBuilder newContent = new StringBuilder();
-        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
         updated = readAndUpdateDetails(detailsPath, imageId, newContent, likesLabel, currentUser);
         if (updated) {
@@ -263,7 +268,7 @@ public class QuakstagramHomeUI extends JFrame {
     }
 
     //Writing data into notifications.txt
-    private void recordLikeNotification(String currentUser, String imageOwner, String imageId, String timestamp) {
+    private void recordLikeNotification(String currentUser, String imageOwner, String imageId, Timestamp timestamp) {
         String notification = String.format("%s; %s; %s; %s\n", imageOwner, currentUser, imageId, timestamp);
         try (BufferedWriter notificationWriter = Files.newBufferedWriter(Paths.get("src/main/java/data", "notifications.txt"), StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
             notificationWriter.write(notification);
@@ -275,12 +280,13 @@ public class QuakstagramHomeUI extends JFrame {
 
     private String[][] createSampleData() {
         String currentUser = loadCurrentUser();
+        String followedUsers = getFollowedUsers(currentUser);
+
         if (currentUser.isEmpty()) {
             LOGGER.severe("Failed to load the current user.");
             return new String[0][0];
         }
 
-        String followedUsers = getFollowedUsers(currentUser);
         String[][] tempData = new String[100][]; // Assuming a maximum of 100 posts for simplicity
         int count = 0;
 

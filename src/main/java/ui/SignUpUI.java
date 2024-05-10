@@ -27,6 +27,7 @@ public class SignUpUI extends JFrame {
     private JPanel registerPanel;
     UserRegistrationHandler newUser = new UserRegistrationHandler();
     private String password;
+    private static String currentSignUpUser;
 
     public SignUpUI() {
         setTitle("Quackstagram - Register");
@@ -137,7 +138,7 @@ public class SignUpUI extends JFrame {
     }
 
     private void onRegisterClicked(ActionEvent event) {
-        String username = txtUsername.getText();
+        String username = getCurrentSignUpUser();
         char[] passwordField = txtPassword.getPassword() ;
         String bio = txtBio.getText();
         
@@ -166,5 +167,13 @@ public class SignUpUI extends JFrame {
             SignInUI signInFrame = new SignInUI();
             signInFrame.setVisible(true);
         });
+    }
+
+    public void setCurrentSignUpUser(String username){
+        currentSignUpUser = username;
+    }
+
+    public static String getCurrentSignUpUser(){
+        return txtUsername.getText();
     }
 }
