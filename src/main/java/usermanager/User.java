@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import datahandler.Encryptor;
 import mediahandler.Picture;
 
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ public class User {
     private int followersCount;
     private int followingCount;
     private List<Picture> pictures;
+    private int user_id;
 
-    public User(String username, String bio, String password) {
+    public User(int user_id, String username, String bio, String password) {
         this.username = username;
         this.bio = bio;
         this.password = password;
+        this.user_id = user_id;
         this.pictures = new ArrayList<>();
     }
 
@@ -64,6 +67,14 @@ public class User {
     public void setFollowersCount(int followersCount) { this.followersCount = followersCount; }
     public void setFollowingCount(int followingCount) { this.followingCount = followingCount; }
     public void setPostCount(int postCount) { this.postsCount = postCount;}
+    public int getUserID(){return user_id;}
+
+    public boolean checkPassword(String password){
+        Encryptor encryptor = Encryptor.getInstance();
+        password = encryptor.encrypt(password);
+
+        return this.password.equals(password);
+    }
     // Implement the toString method for saving user information
     @Override
     public String toString() {
