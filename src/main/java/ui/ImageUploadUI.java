@@ -2,6 +2,10 @@ package ui;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import database.ImageDAOImpl;
+import database.PostDAOImpl;
+import database.UserDAOImpl;
+import usermanager.User;
 import utils.HeaderPanelManager;
 import utils.NavigationManager;
 
@@ -12,6 +16,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -116,8 +122,8 @@ public class ImageUploadUI extends JFrame {
                 Path destPath = Paths.get("src/main/java/img", "uploaded", newFileName);
                 Files.copy(selectedFile.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
     
-                // Save the bio and image ID to a text file
-                saveImageInfo(username + "_" + imageId, username, bioTextArea.getText());
+                // write data to the database
+                saveImageInfo(username, bioTextArea.getText());
     
                 // Load the image from the saved path
                 imageIcon = new ImageIcon(destPath.toString());
@@ -181,20 +187,16 @@ public class ImageUploadUI extends JFrame {
         return maxId + 1; // Return the next available ID
     }
     
-    private void saveImageInfo(String imageId, String username, String bio) throws IOException {
-        Path infoFilePath = Paths.get("src/main/java/img", "image_details.txt");
-        if (!Files.exists(infoFilePath)) {
-            Files.createFile(infoFilePath);
-        }
-    
-        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    
-        try (BufferedWriter writer = Files.newBufferedWriter(infoFilePath, StandardOpenOption.APPEND)) {
-            writer.write(String.format("ImageID: %s, Username: %s, Bio: %s, Timestamp: %s, Likes: 0, UsersLikes: ", imageId, username, bio, timestamp));
-            writer.newLine();
-        }
-    
-}
+    private void saveImageInfo(String username, String bio) throws IOException {
+        User user = UserDAOImpl.getInstance().fecthUserData(username);
+        int user_id = user.getUserID();
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        ImageDAOImpl.getInstance().insert(user_id, bio, timestamp);
+    }
+
+
+
+//file handlers not needed anymore
     private String getFileExtension(File file) {
         String name = file.getName();
         int lastIndexOf = name.lastIndexOf(".");
@@ -204,6 +206,8 @@ public class ImageUploadUI extends JFrame {
         return name.substring(lastIndexOf + 1);
     }
 
+
+    // this will use sessions table
    private String readUsername() throws IOException {
     Path usersFilePath = Paths.get("src/main/java/data", "users.txt");
     try (BufferedReader reader = Files.newBufferedReader(usersFilePath)) {
