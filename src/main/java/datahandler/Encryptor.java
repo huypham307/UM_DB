@@ -82,7 +82,7 @@ public class Encryptor {
     //Debug method
     public static void main(String[] args) {
         Encryptor encryptor = Encryptor.getInstance();
-        String encrypted = encryptor.encrypt("123123");
+        String encrypted = encryptor.encrypt("Password");
         System.out.print("The encrypted password is: L" + encrypted);
     }
  

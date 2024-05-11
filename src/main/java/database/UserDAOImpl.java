@@ -1,5 +1,4 @@
 package database;
-import datahandler.DatabaseConnector;
 import usermanager.User;
 import exception.UserNotFoundException;
 
@@ -23,7 +22,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User fecthUserData(String username) {
+    public User fecthUser(String username) {
         String query = "SELECT * FROM users u WHERE username = ?";
         Connection conn = null;
         try {
@@ -39,6 +38,14 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error executing SQL query: " + e.getMessage());
+        } finally {
+            if(conn != null){
+                try {
+                    conn.close();
+                }catch (SQLException e){
+                    System.out.println(e.getMessage());
+                }
+            }
         }
         return user;
     }
@@ -55,13 +62,88 @@ public class UserDAOImpl implements UserDAO {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }if(conn != null){
+            try {
+                conn.close();
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
+    @Override
+    public int fecthFollowing(int user_id) {
+        String query = "SELECT COUNT(u.user_id) as following FROM QuackstagramDB.users u INNER JOIN QuackstagramDB.follows f ON u.user_id = f.follower_id WHERE u.user_id = ? GROUP BY (u.user_id);";
+
+        int followingCount = 0;
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, user_id);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {  // Add try-with-resources for ResultSet
+                while (rs.next()) {
+                    followingCount = rs.getInt(1);
+                }
+            } // rs is automatically closed here
+
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }
+
+        return followingCount;
+    }
 
 
-    public static void main(String[] args) {
-        User user = UserDAOImpl.getInstance().fecthUserData("Xylo");
-        System.out.println("username: " + user.getUserID() + "bio: " + user.getBio());
+    @Override
+    public int fecthFollower(int user_id) {
+        String query = "SELECT COUNT(u.user_id) as followed FROM QuackstagramDB.users u INNER JOIN QuackstagramDB.follows f ON u.user_id = f.followee_id WHERE u.user_id = ? GROUP BY (u.user_id);";
+
+        Connection conn = null;
+        int followedCount = 0;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, user_id);
+            // Execute query and handle result set
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                followedCount = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }if(conn != null){
+            try {
+                conn.close();
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return followedCount;
+    }
+
+    @Override
+    public int fecthPostNum(int user_id) throws SQLException {
+        String query = "SELECT COUNT(u.user_id) " +
+                "FROM QuackstagramDB.users u INNER JOIN QuackstagramDB.image_data id ON u.user_id = id.user_id " +
+                "WHERE u.user_id = ? " +      // Placeholder for user ID
+                "GROUP BY u.user_id";
+        int postNumber = 0;
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query)){
+            pstmt.setInt(1, user_id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                postNumber = rs.getInt(1);
+            }
+        }catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }
+        return postNumber;
+    }
+
+
+    public static void main(String[] args) throws SQLException {
+        System.out.print(UserDAOImpl.getInstance().fecthPostNum(1));
     }
 }

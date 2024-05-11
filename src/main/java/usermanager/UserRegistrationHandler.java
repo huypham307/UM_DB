@@ -1,16 +1,10 @@
 package usermanager;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
-import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import database.UserDAO;
 import database.UserDAOImpl;
 import datahandler.Encryptor;
 import exception.UserNotFoundException;
@@ -27,7 +21,7 @@ public class UserRegistrationHandler extends JFrame {
 
     public boolean doesUsernameExist(String username) {
         try{
-            User existingUser = UserDAOImpl.getInstance().fecthUserData(username);
+            User existingUser = UserDAOImpl.getInstance().fecthUser(username);
             return true;
         }catch (UserNotFoundException e){
             return false;
@@ -60,7 +54,6 @@ public class UserRegistrationHandler extends JFrame {
     public void saveCredentials(String username, String password, String bio) {
         Encryptor encryptor = Encryptor.getInstance();
         password = encryptor.encrypt(password);
-
         UserDAOImpl.getInstance().insert(username,password,bio);
     }
 }

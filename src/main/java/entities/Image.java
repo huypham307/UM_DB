@@ -5,23 +5,22 @@ import java.sql.Timestamp;
 
 public class Image {
     String imageID;
-    int user_id;
+    String username;
     String imageBio;
     Timestamp postTime;
+    String filePath;
 
-    public Image(String imageID, int user_id, String imageBio, Timestamp postTime){
+
+    public Image(String imageID, String username, String imageBio, Timestamp postTime, String filePath){
         this.imageID = imageID;
-        this.user_id = user_id;
+        this.username = username;
         this.postTime = postTime;
         this.imageBio = imageBio;
+        this.filePath = filePath;
     }
 
     public String getImageID() {
         return imageID;
-    }
-
-    public int getUser_id() {
-        return user_id;
     }
 
     public String getImageBio() {
@@ -36,8 +35,12 @@ public class Image {
         this.imageID = imageID;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setImageBio(String imageBio) {
@@ -46,5 +49,13 @@ public class Image {
 
     public void setPostTime(Timestamp postTime) {
         this.postTime = postTime;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

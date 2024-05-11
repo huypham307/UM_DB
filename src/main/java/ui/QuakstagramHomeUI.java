@@ -2,6 +2,11 @@ package ui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import database.FollowDAOImpl;
+import database.ImageDAOImpl;
+import database.PostDAOImpl;
+import entities.Image;
+import exception.LikeDuplicateException;
 import usermanager.User;
 import usermanager.UserAuthenticator;
 import utils.HeaderPanelManager;
@@ -19,9 +24,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,17 +43,18 @@ public class QuakstagramHomeUI extends JFrame {
     private JPanel cardPanel;
     private JPanel homePanel;
     private JPanel imageViewPanel;
-
+    int currentUserID;
     private static final Logger LOGGER = Logger.getLogger(QuakstagramHomeUI.class.getName());
 
-
     public QuakstagramHomeUI() {
+        currentUserID = UserAuthenticator.getInstance().getAuthorizedUser().getUserID();
         setupMainFrame();
         setupCardLayoutPanels();
         initializeUI();
         setupHeader();
         setupNavigationBar();
         showHomePanel();
+
     }
 
     private void setupMainFrame() {
@@ -104,18 +112,20 @@ public class QuakstagramHomeUI extends JFrame {
     }
 
     private void loadAndDisplaySampleData(JPanel contentPanel) {
-        String[][] sampleData = createSampleData();
+        ArrayList<Image> sampleData = createSampleData();
         populateContentPanel(contentPanel, sampleData);
     }
 
-    private void populateContentPanel(JPanel panel, String[][] sampleData) {
-        for (String[] postData : sampleData) {
+    private void populateContentPanel(JPanel panel,ArrayList<Image> sampleData) {
+        String likeCount;
+        for (Image image : sampleData) {
+            likeCount = Integer.toString(PostDAOImpl.getInstance().fetchLikeCounts(image.getImageID()));
             JPanel itemPanel = createItemPanel();
-            JLabel nameLabel = createLabel(postData[0]);
-            JLabel imageLabel = prepareImageLabel(postData[3]);
-            JLabel descriptionLabel = createLabel(postData[1]);
-            JLabel likesLabel = createLabel(postData[2]);
-            JButton likeButton = createLikeButton(likesLabel, postData[3]);
+            JLabel nameLabel = createLabel(image.getUsername());
+            JLabel imageLabel = prepareImageLabel(image.getFilePath());
+            JLabel descriptionLabel = createLabel(image.getImageBio());
+            JLabel likesLabel = createLabel(likeCount);
+            JButton likeButton = createLikeButton(likesLabel, image.getImageID());
 
 
             itemPanel.add(nameLabel);
@@ -145,14 +155,13 @@ public class QuakstagramHomeUI extends JFrame {
         return label;
     }
 
-    private JButton createLikeButton(JLabel likesLabel, String imageFilePath) {
+    private JButton createLikeButton(JLabel likesLabel, String imageID) {
         JButton likeButton = new JButton("❤");
         likeButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         likeButton.setBackground(LIKE_BUTTON_COLOR);
         likeButton.setOpaque(true);
         likeButton.setBorderPainted(false);
-        String imageId = new File(imageFilePath).getName().split("\\.")[0];
-        likeButton.addActionListener(e -> handleLikeAction(imageId, likesLabel));
+        likeButton.addActionListener(e -> handleLikeAction(imageID, likesLabel));
         return likeButton;
     }
 
@@ -185,87 +194,18 @@ public class QuakstagramHomeUI extends JFrame {
     }
 
     private void handleLikeAction(String imageId, JLabel likesLabel) {
-        Path detailsPath = Paths.get("src/main/java/img", "image_details.txt");
         //Track the user who liked the post
-        String currentUser = UserAuthenticator.getInstance().getAuthorizedUser().getUsername();
-        if (currentUser.isEmpty()) {
-            LOGGER.severe("Current user could not be determined.");
-            return;
-        }
-
-        boolean updated = false;
-        StringBuilder newContent = new StringBuilder();
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
-
-        updated = readAndUpdateDetails(detailsPath, imageId, newContent, likesLabel, currentUser);
-        if (updated) {
-            updateLikesOnUIAndFile(detailsPath, newContent);
-            recordLikeNotification(currentUser, "", imageId, timestamp);
+        int currentLikeCount = PostDAOImpl.getInstance().fetchLikeCounts(imageId);;
+        boolean isSuccessful = PostDAOImpl.getInstance().insert(currentUserID, imageId, timestamp);
+        if (isSuccessful) {
+            int updatedLikeCount = currentLikeCount + 1;
+            likesLabel.setText(Integer.toString(updatedLikeCount));
         } else {
-            LOGGER.severe("Failed to update likes for imageId: " + imageId);
+            System.out.println("Already liked");
         }
     }
 
-    private String getCurrentUser() {
-        try (BufferedReader userReader = Files.newBufferedReader(Paths.get("src/main/java/data", "users.txt"))) {
-            String line = userReader.readLine();
-            if (line != null) {
-                return line.split(":")[0].trim();
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to read current user.", e);
-        }
-        return "";
-    }
-
-    private boolean readAndUpdateDetails(Path detailsPath, String imageId, StringBuilder newContent, JLabel likesLabel, String currentUser) {
-        boolean updated = false;
-        try (BufferedReader reader = Files.newBufferedReader(detailsPath)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.contains("ImageID: " + imageId)) {
-                    updated = true;
-                    boolean findUser = false;
-                    String[] parts = line.split(", ");
-                    String usersLiked = parts[5].split(": ")[1];
-                    String[] userLiked = usersLiked.split("/");
-                    
-                    for(int i = 0; i < userLiked.length; i++){
-                        if(userLiked[i].equals(currentUser)){
-                            findUser = true;
-                            continue;
-                        }
-                    }
-                    if(findUser == false){
-                        String checkNull = userLiked[0];
-                        int likes = Integer.parseInt(parts[4].split(": ")[1]) + 1;
-                        parts[4] = "Likes: " + likes;
-                            if(checkNull.equals("null")){
-                                parts[5] = "UsersLikes: " + currentUser;
-                            }
-                            else{
-                                parts[5] = "UsersLikes: " + String.join("/", userLiked) + "/" + currentUser;
-                            }
-                        line = String.join(", ", parts);
-                        likesLabel.setText(parts[4]);
-                    }
-                }
-                newContent.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to read or update image details.", e);
-            return false;
-        }
-        return updated;
-    }
-
-    private void updateLikesOnUIAndFile(Path detailsPath, StringBuilder newContent) {
-        try (BufferedWriter writer = Files.newBufferedWriter(detailsPath)) {
-            writer.write(newContent.toString());
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to write updated likes back to file.", e);
-        }
-    }
 
     //Writing data into notifications.txt
     private void recordLikeNotification(String currentUser, String imageOwner, String imageId, Timestamp timestamp) {
@@ -278,35 +218,8 @@ public class QuakstagramHomeUI extends JFrame {
     }
 
 
-    private String[][] createSampleData() {
-        String currentUser = loadCurrentUser();
-        String followedUsers = getFollowedUsers(currentUser);
-
-        if (currentUser.isEmpty()) {
-            LOGGER.severe("Failed to load the current user.");
-            return new String[0][0];
-        }
-
-        String[][] tempData = new String[100][]; // Assuming a maximum of 100 posts for simplicity
-        int count = 0;
-
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/img", "image_details.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null && count < tempData.length) {
-                String[] details = line.split(", ");
-                String imagePoster = details[1].split(": ")[1];
-                if (followedUsers.contains(imagePoster)) {
-                    String imagePath = "src/main/java/img/uploaded/" + details[0].split(": ")[1] + ".png";
-                    String description = details[2].split(": ")[1];
-                    String likes = "Likes: " + details[4].split(": ")[1];
-                    tempData[count++] = new String[]{imagePoster, description, likes, imagePath};
-                }
-            }
-        } catch (IOException e) { 
-            LOGGER.log(Level.SEVERE, "Failed to load image details.", e);
-        }
-
-        return Arrays.copyOf(tempData, count); // Trim the array to the actual count of entries
+    private ArrayList<Image> createSampleData() {
+        return ImageDAOImpl.getInstance().fetchFollowedImage(currentUserID);
     }
 
     private String loadCurrentUser() {
@@ -336,4 +249,6 @@ public class QuakstagramHomeUI extends JFrame {
         }
         return followedUsers.toString();
     }
+
+
 }

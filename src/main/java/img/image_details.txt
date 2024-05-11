@@ -4,8 +4,8 @@ ImageID: Xylo_1, Username: Xylo, Bio: My tea strong as Force is., Timestamp: 202
 ImageID: Xylo_2, Username: Xylo, Bio: Jedi mind trick failed., Timestamp: 2023-12-17 19:23:14, Likes: 1, UsersLikes: quack2
 ImageID: Zara_1, Username: Zara, Bio: Lost my map I have. Oops., Timestamp: 2023-12-17 19:24:31, Likes: 16, UsersLikes: null
 ImageID: Zara_2, Username: Zara, Bio: Yoga with Yoda, Timestamp: 2023-12-17 19:25:03, Likes: 21, UsersLikes: null
-ImageID: Mystar_1, Username: Mystar, Bio: Cookies gone? , Timestamp: 2023-12-17 19:26:50, Likes: 53, UsersLikes: quack1/quacksta/quack2/quack10
-ImageID: Mystar_2, Username: Mystar, Bio: In my soup a fly is., Timestamp: 2023-12-17 19:27:24, Likes: 12, UsersLikes: quack1
+ImageID: Mystar_1, Username: Mystar, Bio: Cookies gone? , Timestamp: 2023-12-17 19:26:50, Likes: 54, UsersLikes: quack1/quacksta/quack2/quack10/Lorin
+ImageID: Mystar_2, Username: Mystar, Bio: In my soup a fly is., Timestamp: 2023-12-17 19:27:24, Likes: 13, UsersLikes: quack1/Lorin
 ImageID: kidprobambo123_1, Username: kidprobambo123, Bio: Enter a caption, Timestamp: 2024-03-03 15:42:35, Likes: 0, UsersLikes: null
 ImageID: kidprobambo123_2, Username: kidprobambo123, Bio: Enter a caption, Timestamp: 2024-03-03 15:42:42, Likes: 0, UsersLikes: null
 ImageID: kidprobambo123_3, Username: kidprobambo123, Bio: Enter a captionáiudhasiudhasdhiuahsdiahdiahsdiuhasdiuhasiudhaiusdhiaushdiuahsdiahsdiuashdiuioasdiuahsdiuhasasdasdasd, Timestamp: 2024-03-04 13:21:46, Likes: 17, UsersLikes: null

@@ -5,9 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/ImageDataDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/ImageDataDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/exception/LikeDuplicateException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/following.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/following.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/notifications.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/notifications.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDataDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDataDAOImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/PostDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/PostDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/datahandler/Encryptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/datahandler/Encryptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Image.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/img/image_details.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/img/image_details.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,10 +58,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.DatabaseConnector.executor": "Run",
-    "Application.Encryptor.executor": "Debug",
+    "Application.Encryptor.executor": "Run",
     "Application.FollowDAOImpl.executor": "Run",
+    "Application.ImageDAOImpl.executor": "Run",
     "Application.ImageDataDAOImpl.executor": "Run",
+    "Application.PostDAOImpl.executor": "Run",
     "Application.Program.executor": "Run",
+    "Application.QuakstagramHomeUI.executor": "Run",
     "Application.SessionsDAOImpl.executor": "Run",
     "Application.UserDAOImpl.executor": "Run",
     "Application.userDAOImpl.executor": "Run",
@@ -88,6 +107,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Program" />
+        <item itemvalue="Application.Program" />
       </list>
     </recent_temporary>
   </component>
@@ -124,7 +144,7 @@
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
           <line>66</line>
-          <properties class="ui.InstagramProfileUI" method="configureUserProfile">
+          <properties class="ui.InstagramProfileUI">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -133,7 +153,7 @@
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
           <line>49</line>
-          <properties class="ui.InstagramProfileUI" method="&lt;init&gt;">
+          <properties class="ui.InstagramProfileUI">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -159,7 +179,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java</url>
-          <line>37</line>
+          <line>31</line>
           <properties class="usermanager.UserRegistrationHandler" method="handleProfilePictureUpload">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -175,6 +195,42 @@
           </properties>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java</url>
+          <line>195</line>
+          <properties class="ui.QuakstagramHomeUI" method="handleLikeAction">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java</url>
+          <line>48</line>
+          <properties class="ui.QuakstagramHomeUI" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java</url>
+          <line>22</line>
+          <properties class="database.PostDAOImpl" method="insert">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java</url>
+          <line>73</line>
+          <properties class="ui.SearchPanelUI" method="displayResults">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
           <line>69</line>
@@ -189,6 +245,31 @@
           <url>file://$PROJECT_DIR$/src/main/java/ui/SignUpUI.java</url>
           <line>158</line>
           <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java</url>
+          <line>175</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java</url>
+          <line>180</line>
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />

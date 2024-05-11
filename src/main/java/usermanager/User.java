@@ -21,13 +21,14 @@ public class User {
     private int followingCount;
     private List<Picture> pictures;
     private int user_id;
-
+    private User user;
     public User(int user_id, String username, String bio, String password) {
         this.username = username;
         this.bio = bio;
         this.password = password;
         this.user_id = user_id;
         this.pictures = new ArrayList<>();
+        this.user = new User(username);
     }
 
     public User(String username){
@@ -74,6 +75,9 @@ public class User {
         password = encryptor.encrypt(password);
 
         return this.password.equals(password);
+    }
+    public User getCurrentUser(){
+        return UserAuthenticator.getInstance().getAuthorizedUser();
     }
     // Implement the toString method for saving user information
     @Override

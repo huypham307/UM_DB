@@ -8,6 +8,7 @@ import ui.NotificationsUI;
 import ui.QuakstagramHomeUI;
 import ui.SearchPanelUI;
 import usermanager.User;
+import usermanager.UserAuthenticator;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -65,7 +66,7 @@ public class NavigationManager {
     } catch (IOException e) {
         e.printStackTrace();
     }
-     User user = new User(loggedInUsername);
+     User user = UserAuthenticator.getInstance().getAuthorizedUser();
        InstagramProfileUI profileUI = new InstagramProfileUI(user);
        profileUI.setVisible(true);
    }
