@@ -1,6 +1,10 @@
 package ui;
 import javax.swing.*;
 
+import database.PostDAOImpl;
+import entities.Notification;
+import usermanager.User;
+import usermanager.UserAuthenticator;
 import utils.HeaderPanelManager;
 import utils.NavigationManager;
 
@@ -9,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -22,7 +27,7 @@ public class NotificationsUI extends JFrame {
     private static final int WIDTH = 300;
     private static final int HEIGHT = 500;
     private static final Logger LOGGER = Logger.getLogger(NotificationsUI.class.getName());
-
+    private User currentUser;
     private JPanel contentPanel;
     public NotificationsUI() {
         setTitle("Notifications");
@@ -30,6 +35,7 @@ public class NotificationsUI extends JFrame {
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        currentUser = UserAuthenticator.getInstance().getAuthorizedUser();
         initializeUI();
     }
 
@@ -43,8 +49,8 @@ public class NotificationsUI extends JFrame {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         JScrollPane scrollPane = setupScrollPane();
 
-        String currentUsername = readUsername();
-        List<String> notifications = readNotifications(currentUsername);
+        int currentUserID = currentUser.getUserID();
+        List<String> notifications = readNotifications(currentUserID);
         for (String notification : notifications) {
             displayNotification(notification);
         }
@@ -62,40 +68,20 @@ public class NotificationsUI extends JFrame {
         return scrollPane;
     }
 
-    private String readUsername() {
-        String currentUsername = "";
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "users.txt"))) {
-            String line = reader.readLine();
-            if (line != null) {
-                currentUsername = line.split(":")[0].trim();
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to read username", e);
+    private List<String> readNotifications(int currentUserID) {
+        List<String> notificationString = new ArrayList<>();
+        ArrayList<Notification> notifications = PostDAOImpl.getInstance().fectchNotifications(currentUserID);
+
+        for (Notification notification: notifications){
+            notificationString.add(formatNotification(notification));
         }
-        return currentUsername;
+        return notificationString;
     }
 
-    private List<String> readNotifications(String currentUsername) {
-        List<String> notifications = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "notifications.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts[0].trim().equals(currentUsername)) {
-                    String notificationMessage = formatNotification(parts);
-                    notifications.add(notificationMessage);
-                }
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to read notifications", e);
-        }
-        return notifications;
-    }
-
-    private String formatNotification(String[] parts) {
+    private String formatNotification(Notification notification) {
         // Format the notification message
-        String userWhoLiked = parts[1].trim();
-        String timestamp = parts[3].trim();
+        String userWhoLiked = notification.getLikername();
+        Timestamp timestamp = notification.getLikeTime();
         return userWhoLiked + " liked your picture - " + getElapsedTime(timestamp) + " ago";
     }
 
@@ -110,20 +96,21 @@ public class NotificationsUI extends JFrame {
         contentPanel.revalidate();
     }
 
-    private String getElapsedTime(String timestamp) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime timeOfNotification = LocalDateTime.parse(timestamp, formatter);
+    private static String getElapsedTime(Timestamp timestamp) {
+        LocalDateTime timeOfNotification = timestamp.toLocalDateTime(); // Convert to LocalDateTime
         LocalDateTime currentTime = LocalDateTime.now();
 
         long daysBetween = ChronoUnit.DAYS.between(timeOfNotification, currentTime);
         long totalHoursBetween = ChronoUnit.HOURS.between(timeOfNotification, currentTime);
-        long hoursBetween = totalHoursBetween % 24; // Hours that don't complete a full day
+        long hoursBetween = totalHoursBetween % 24; // Hours not making a full day
         long minutesBetween = ChronoUnit.MINUTES.between(timeOfNotification, currentTime) % 60;
 
         return formatElapsedTime(daysBetween, hoursBetween, minutesBetween);
     }
 
-    private String formatElapsedTime(long days, long hours, long minutes) {
+
+
+    private static String formatElapsedTime(long days, long hours, long minutes) {
         StringBuilder timeElapsed = new StringBuilder();
         if (days > 0) {
             timeElapsed.append(days).append(" day").append(days > 1 ? "s" : "");
@@ -142,5 +129,12 @@ public class NotificationsUI extends JFrame {
         }
 
         return timeElapsed.toString();
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Notification> notifications = PostDAOImpl.getInstance().fectchNotifications(4);
+        for (Notification notification : notifications){
+            System.out.println(getElapsedTime(notification.getLikeTime()));
+        }
     }
 }

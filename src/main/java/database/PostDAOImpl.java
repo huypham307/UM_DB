@@ -1,9 +1,11 @@
 package database;
 
+import entities.Notification;
 import exception.LikeDuplicateException;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class PostDAOImpl implements PostDAO {
     static PostDAOImpl instance;
@@ -73,7 +75,40 @@ public class PostDAOImpl implements PostDAO {
         return likeCount;
     }
 
-    public static void main(String[] args) {
-        PostDAOImpl.getInstance().insert(4, "Mystar_1", null);
+    public ArrayList<Notification> fectchNotifications(int userID){
+        String query = "SELECT u.username as liker, temp2.username as owner, time " +
+                "FROM QuackstagramDB.users u " +
+                "INNER JOIN (" +
+                "SELECT u.user_id, username, liker_id, time " +
+                "FROM QuackstagramDB.users u " +
+                "INNER JOIN (" +
+                "SELECT user_id, liker_id, time " +
+                "FROM QuackstagramDB.posts p " +
+                "INNER JOIN QuackstagramDB.image_data id ON p.image_id = id.image_id " +
+                "WHERE user_id = ?" +
+                ") as temp ON u.user_id = temp.user_id" +
+                ") as temp2 ON u.user_id = temp2.liker_id";
+
+        ArrayList<Notification> notifications = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query)){
+
+            pstmt.setInt(1, userID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                notifications.add(new Notification(rs.getString(1), rs.getString(2), rs.getTimestamp(3)));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return notifications;
     }
+
+    public static void main(String[] args) {
+        ArrayList<Notification> notifications = PostDAOImpl.getInstance().fectchNotifications(4);
+        for (Notification noti: notifications){
+            System.out.println(noti.getLikername() + " has liked " + "image of " + noti.getUsername());
+        }
+    }
+
 }

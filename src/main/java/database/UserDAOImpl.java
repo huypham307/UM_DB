@@ -147,7 +147,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
+
+
     public static void main(String[] args) throws SQLException {
-        System.out.print(UserDAOImpl.getInstance().fecthPostNum(1));
+//        UserDAOImpl.getInstance().insertFollow(3,2);
     }
 }

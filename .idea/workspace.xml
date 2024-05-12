@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/entities/Notification.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/FollowDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/FollowDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/datahandler/DatabaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/datahandler/DatabaseConnector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/FollowStat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/FollowStat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/NotificationsUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/NotificationsUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserRelationshipManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserRelationshipManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,11 +53,13 @@
     "Application.FollowDAOImpl.executor": "Run",
     "Application.ImageDAOImpl.executor": "Run",
     "Application.ImageDataDAOImpl.executor": "Run",
+    "Application.NotificationsUI.executor": "Run",
     "Application.PostDAOImpl.executor": "Run",
     "Application.Program.executor": "Run",
     "Application.QuakstagramHomeUI.executor": "Run",
     "Application.SessionsDAOImpl.executor": "Run",
     "Application.UserDAOImpl.executor": "Run",
+    "Application.UserRelationshipManager.executor": "Run",
     "Application.userDAOImpl.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -143,7 +145,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
-          <line>52</line>
+          <line>51</line>
           <properties class="ui.InstagramProfileUI" method="&lt;init&gt;">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -178,15 +180,6 @@
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/database/FollowDAOImpl.java</url>
-          <line>29</line>
-          <properties class="database.FollowDAOImpl" method="fetchFollower">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java</url>
           <line>195</line>
           <properties class="ui.QuakstagramHomeUI" method="handleLikeAction">
@@ -206,7 +199,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java</url>
-          <line>22</line>
+          <line>24</line>
           <properties class="database.PostDAOImpl" method="insert">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -223,13 +216,22 @@
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java</url>
-          <line>100</line>
-          <properties class="database.UserDAOImpl" method="fecthFollower">
+          <url>file://$PROJECT_DIR$/src/main/java/utils/NavigationManager.java</url>
+          <line>87</line>
+          <properties class="utils.NavigationManager" method="openHomeUI">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="65" />
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java</url>
+          <line>39</line>
+          <properties class="database.ImageDAOImpl" method="fetchFollowedImage">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
@@ -238,7 +240,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
-          <line>57</line>
+          <line>56</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -253,7 +255,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java</url>
-          <line>47</line>
+          <line>49</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -265,6 +267,16 @@
           <url>file://$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java</url>
           <line>126</line>
           <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/utils/NavigationManager.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="79" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />

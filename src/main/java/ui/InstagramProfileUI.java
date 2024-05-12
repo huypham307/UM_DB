@@ -37,7 +37,7 @@ public class InstagramProfileUI extends JFrame {
     private UserRelationshipManager userRelationshipManager;
     private BioPanelManager bioPanelManager;
     private ButtonFactory buttonFactory;
-    private String loggedInUsername = "";
+    private int loggedInUserID;
     private boolean isAlreadyFollowed;
     JButton followButton;
     Path imageDir = Paths.get("img", "uploaded");
@@ -45,6 +45,7 @@ public class InstagramProfileUI extends JFrame {
     ActionListener followAction;
     JPanel topHeaderPanel;
     private FileHandler fileHandler;
+    private int currentUserID;
 
 //    private NavigationManager navigationManager;
 
@@ -58,8 +59,9 @@ public class InstagramProfileUI extends JFrame {
     private void initializeManagers(User user) {
         this.fileHandler = new FileHandler();
         this.currentUser = user;
-
-        this.userRelationshipManager = new UserRelationshipManager(fileHandler);
+        this.currentUserID = user.getUserID();
+        this.loggedInUserID = UserAuthenticator.getInstance().getAuthorizedUser().getUserID();
+        this.userRelationshipManager = new UserRelationshipManager();
         this.buttonFactory = new ButtonFactory();
 
         this.bioPanelManager = new BioPanelManager(user);
@@ -71,6 +73,7 @@ public class InstagramProfileUI extends JFrame {
                 UserDAOImpl.getInstance().fecthFollowing(currentUser.getUserID()),
                 UserDAOImpl.getInstance().fecthPostNum(currentUser.getUserID()));
     }
+
 
     private void initializeUIComponents() {
         this.contentPanel = new JPanel();
@@ -107,7 +110,7 @@ public class InstagramProfileUI extends JFrame {
 
     private void checkFollowStatus(){
         try {
-            this.isAlreadyFollowed = userRelationshipManager.isAlreadyFollowing(loggedInUsername, currentUser.getUsername() );
+            this.isAlreadyFollowed = userRelationshipManager.isAlreadyFollowing(loggedInUserID, currentUserID);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,7 +119,7 @@ public class InstagramProfileUI extends JFrame {
     private void updateFollowButton(){
         this.followAction =  e -> {
             try {
-                userRelationshipManager.followUser(loggedInUsername, currentUser.getUsername());
+                userRelationshipManager.followUser(loggedInUserID, currentUserID);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
