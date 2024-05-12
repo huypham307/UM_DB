@@ -1,6 +1,9 @@
 package ui;
 import javax.swing.*;
 
+import database.ImageDAOImpl;
+import database.PostDAOImpl;
+import database.UserDAOImpl;
 import usermanager.User;
 import utils.NavigationManager;
 
@@ -13,7 +16,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Stream;
@@ -58,7 +65,11 @@ public class ExploreUIPanel {
                     imageLabel.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                            displayImage(imageFile.getPath(), window, headerPanel, navigationPanel);
+                            try {
+                                displayImage(imageFile.getPath(), window, headerPanel, navigationPanel);
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         }
                     });
                     imageGridPanel.add(imageLabel);
@@ -80,7 +91,7 @@ public class ExploreUIPanel {
         return mainContentPanel;
     }
 
-        private void displayImage(String imagePath, JFrame window, JPanel headerPanel, JPanel navigationPanel) {
+        private void displayImage(String imagePath, JFrame window, JPanel headerPanel, JPanel navigationPanel) throws SQLException {
         window.getContentPane().removeAll();
         window.setLayout(new BorderLayout());
 
@@ -88,38 +99,17 @@ public class ExploreUIPanel {
         String imageId = new File(imagePath).getName().split("\\.")[0];
 
         // Read image details
-        String username = "";
-        String bio = "";
-        String timestampString = "";
-        int likes = 0;
-        Path detailsPath = Paths.get("src/main/java/img", "image_details.txt");
-        try (Stream<String> lines = Files.lines(detailsPath)) {
-            String details = lines.filter(line -> line.contains("ImageID: " + imageId)).findFirst().orElse("");
-            if (!details.isEmpty()) {
-                String[] parts = details.split(", ");
-                username = parts[1].split(": ")[1];
-                bio = parts[2].split(": ")[1];
-                System.out.println(bio + "this is where you get an error " + parts[3]);
-                timestampString = parts[3].split(": ")[1];
-                likes = Integer.parseInt(parts[4].split(": ")[1]);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            // Handle exception
-        }
+        entities.Image image = ImageDAOImpl.getInstance().fetchImage(imageId);
+
+        //Fetch like counts on image
+            int likeCount = PostDAOImpl.getInstance().fetchLikeCounts(imageId);
 
         // Calculate time since posting
-        String timeSincePosting = "Unknown";
-        if (!timestampString.isEmpty()) {
-            LocalDateTime timestamp = LocalDateTime.parse(timestampString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            LocalDateTime now = LocalDateTime.now();
-            long days = ChronoUnit.DAYS.between(timestamp, now);
-            timeSincePosting = days + " day" + (days != 1 ? "s" : "") + " ago";
-        }
+        String timeSincePosting = calculateTimeSincePosting(image.getPostTime());
 
         // Top panel for username and time since posting
         JPanel topPanel = new JPanel(new BorderLayout());
-        JButton usernameLabel = new JButton(username);
+        JButton usernameLabel = new JButton(image.getUsername());
         JLabel timeLabel = new JLabel(timeSincePosting);
         timeLabel.setHorizontalAlignment(JLabel.RIGHT);
         topPanel.add(usernameLabel, BorderLayout.WEST);
@@ -139,9 +129,9 @@ public class ExploreUIPanel {
 
         // Bottom panel for bio and likes
         JPanel bottomPanel = new JPanel(new BorderLayout());
-        JTextArea bioTextArea = new JTextArea(bio);
+        JTextArea bioTextArea = new JTextArea(image.getImageBio());
         bioTextArea.setEditable(false);
-        JLabel likesLabel = new JLabel("Likes: " + likes);
+        JLabel likesLabel = new JLabel("Likes: " + likeCount);
         bottomPanel.add(bioTextArea, BorderLayout.CENTER);
         bottomPanel.add(likesLabel, BorderLayout.SOUTH);
 
@@ -171,11 +161,16 @@ public class ExploreUIPanel {
             window.revalidate();
             window.repaint();
         });
-        final String finalUsername = username;
+        final String finalUsername = image.getUsername();
 
         usernameLabel.addActionListener(e -> {
-            User user = new User(finalUsername); // Assuming User class has a constructor that takes a username
-            InstagramProfileUI profileUI = new InstagramProfileUI(user);
+            User user = UserDAOImpl.getInstance().fecthUser(finalUsername); // Assuming User class has a constructor that takes a username
+            InstagramProfileUI profileUI = null;
+            try {
+                profileUI = new InstagramProfileUI(user);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             profileUI.setVisible(true);
             window.dispose(); // Close the current frame
         });
@@ -213,4 +208,32 @@ public class ExploreUIPanel {
     }
 
     // Other helper methods (like displayImage) as necessary...
+
+
+    public static String calculateTimeSincePosting(Timestamp timestamp) {
+        if (timestamp == null) {
+            return "Unknown";
+        }
+
+        try {
+            // Convert Timestamp to LocalDateTime
+            Instant instant = timestamp.toInstant();
+            LocalDateTime postTimestamp = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+            LocalDateTime now = LocalDateTime.now();
+            long days = ChronoUnit.DAYS.between(postTimestamp, now);
+
+            return days + " day" + (days != 1 ? "s" : "") + " ago";
+
+        } catch (Exception e) {
+            // Handle potential exceptions (e.g., timezone issues)
+            return "Error calculating time"; // or log the error and return a default
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
+        entities.Image image = ImageDAOImpl.getInstance().fetchImage("Lorin_1");
+        System.out.println(calculateTimeSincePosting(image.getPostTime()));
+    }
+
 }

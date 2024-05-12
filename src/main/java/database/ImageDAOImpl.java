@@ -40,7 +40,7 @@ public class ImageDAOImpl implements ImageDAO {
     public ArrayList<Image> fetchFollowedImage(int user_id){
         String query = "SELECT image_id, image_bio, file_path, post_time, username FROM users u INNER JOIN (SELECT * FROM image_data id INNER JOIN (SELECT * FROM follows f WHERE follower_id = ?) as temp ON id.user_id = temp.followee_id) as temp2 ON u.user_id = temp2.user_id";
         ArrayList<Image> images = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         try{
             conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -56,15 +56,40 @@ public class ImageDAOImpl implements ImageDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            if(conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
         }
         return images;
     }
 
-    public static void main(String[] args) {
-        ArrayList<Image> images = ImageDAOImpl.getInstance().fetchFollowedImage(1);
-        for(Image img: images){
-            System.out.println("ImageID: " + img.getImageID() + " " + img.getUsername());
+    public Image fetchImage(String imageID) throws SQLException {
+        String query = "SELECT image_id, u.username, image_bio, post_time, file_path " +
+                "FROM image_data id INNER JOIN users u ON id.user_id = u.user_id " +
+                "WHERE image_id = ?";
+        Image image = null;
+        try(Connection conn = dataSource.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(query)){
+            pstmt.setString(1, imageID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                image = new Image(rs.getString(1), rs.getString(2), rs.getString(3), rs.getTimestamp(4), rs.getString(5));
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
+        return image;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        Image image = ImageDAOImpl.getInstance().fetchImage("Mystar_1");
+        System.out.println("Owner: " + image.getUsername()+ " " + image.getImageID());
 
     }
 }

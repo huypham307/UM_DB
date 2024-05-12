@@ -52,7 +52,7 @@ public class UserDAOImpl implements UserDAO {
 
     public void insert(String username, String password, String bio){
         String query = "INSERT INTO users (username, password, bio) VALUES (?,?,?)";
-        Connection conn;
+        Connection conn = null;
         try{
             conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -62,11 +62,13 @@ public class UserDAOImpl implements UserDAO {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }if(conn != null){
-            try {
-                conn.close();
-            }catch (SQLException e){
-                System.out.println(e.getMessage());
+        }finally {
+            if(conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
@@ -112,11 +114,13 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error executing SQL query: " + e.getMessage());
-        }if(conn != null){
-            try {
-                conn.close();
-            }catch (SQLException e){
-                System.out.println(e.getMessage());
+        }finally {
+            if(conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         return followedCount;

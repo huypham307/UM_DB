@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 public class NavigationManager {
 
@@ -40,7 +41,13 @@ public class NavigationManager {
         navigationPanel.add(Box.createHorizontalGlue());
         navigationPanel.add(buttonFactory.createIconButton("src/main/java/img/icons/heart.png", e -> notificationsUI()));
         navigationPanel.add(Box.createHorizontalGlue());
-        navigationPanel.add(buttonFactory.createIconButton("src/main/java/img/icons/profile.png", e -> openProfileUI()));
+        navigationPanel.add(buttonFactory.createIconButton("src/main/java/img/icons/profile.png", e -> {
+            try {
+                openProfileUI();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        }));
 
         return navigationPanel;
     }
@@ -52,7 +59,7 @@ public class NavigationManager {
         upload.setVisible(true);
     }
 
-    private  void openProfileUI() {
+    private  void openProfileUI() throws SQLException {
        // Open InstagramProfileUI frame
        frame.dispose();
        String loggedInUsername = "";

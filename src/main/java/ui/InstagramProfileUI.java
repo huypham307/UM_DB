@@ -1,10 +1,11 @@
 package ui;
 import javax.swing.*;
 
+import database.UserDAOImpl;
 import datahandler.FileHandler;
 import mediahandler.ImageLoader;
 import usermanager.User;
-import usermanager.UserProfileManager;
+import usermanager.UserAuthenticator;
 import usermanager.UserRelationshipManager;
 import utils.BioPanelManager;
 import utils.ButtonFactory;
@@ -17,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.awt.*;
 import java.nio.file.*;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -32,7 +34,6 @@ public class InstagramProfileUI extends JFrame {
     private JPanel navigationPanel; // Panel for the navigation
 
     private User currentUser; // User object to store the current user's information
-    private UserProfileManager userProfileManager;
     private UserRelationshipManager userRelationshipManager;
     private BioPanelManager bioPanelManager;
     private ButtonFactory buttonFactory;
@@ -47,7 +48,7 @@ public class InstagramProfileUI extends JFrame {
 
 //    private NavigationManager navigationManager;
 
-    public InstagramProfileUI(User user) {
+    public InstagramProfileUI(User user) throws SQLException {
         initializeManagers(user);
         configureUserProfile();
         initializeUIComponents();
@@ -57,16 +58,18 @@ public class InstagramProfileUI extends JFrame {
     private void initializeManagers(User user) {
         this.fileHandler = new FileHandler();
         this.currentUser = user;
-        this.userProfileManager = new UserProfileManager();
+
         this.userRelationshipManager = new UserRelationshipManager(fileHandler);
         this.buttonFactory = new ButtonFactory();
-        this.loggedInUsername = userProfileManager.readUserName();
+
         this.bioPanelManager = new BioPanelManager(user);
     }
 
-    private void configureUserProfile() {
-        FollowStat followStat = new FollowStat(currentUser.getUsername());
-        configureUserProfile(currentUser.getBio(), followStat.getFollowerCount(), followStat.getFollwingCount(), currentUser.getPostCount());
+    private void configureUserProfile() throws SQLException {
+        configureUserProfile(currentUser.getBio(),
+                UserDAOImpl.getInstance().fecthFollower(currentUser.getUserID()),
+                UserDAOImpl.getInstance().fecthFollowing(currentUser.getUserID()),
+                UserDAOImpl.getInstance().fecthPostNum(currentUser.getUserID()));
     }
 
     private void initializeUIComponents() {
@@ -135,7 +138,7 @@ public class InstagramProfileUI extends JFrame {
 
         // Header Panel
         headerPanel = new JPanel();
-        boolean isCurrentUser = userProfileManager.isCurrentUser(user.getUsername());
+        boolean isCurrentUser = isCurrentUser(currentUser.getUsername());
 
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
         headerPanel.setBackground(Color.GRAY);
@@ -242,5 +245,9 @@ public class InstagramProfileUI extends JFrame {
         label.setFont(new Font("Arial", Font.BOLD, 12));
         label.setForeground(Color.BLACK);
         return label;
+    }
+
+    private boolean isCurrentUser(String profileUserName){
+        return profileUserName.equals(UserAuthenticator.getInstance().getAuthorizedUser().getUsername());
     }
 }

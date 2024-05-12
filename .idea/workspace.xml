@@ -5,24 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/exception/LikeDuplicateException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/following.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/following.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/notifications.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/notifications.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDataDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDataDAOImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/PostDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/PostDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/PostDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/datahandler/Encryptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/datahandler/Encryptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Image.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/img/image_details.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/img/image_details.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserAuthenticator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/FollowStat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/FollowStat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +49,7 @@
   "keyToString": {
     "Application.DatabaseConnector.executor": "Run",
     "Application.Encryptor.executor": "Run",
+    "Application.ExploreUIPanel.executor": "Run",
     "Application.FollowDAOImpl.executor": "Run",
     "Application.ImageDAOImpl.executor": "Run",
     "Application.ImageDataDAOImpl.executor": "Run",
@@ -143,8 +134,8 @@
       <breakpoints>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
-          <line>66</line>
-          <properties class="ui.InstagramProfileUI">
+          <line>69</line>
+          <properties class="ui.InstagramProfileUI" method="configureUserProfile">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -152,8 +143,8 @@
         </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
-          <line>49</line>
-          <properties class="ui.InstagramProfileUI">
+          <line>52</line>
+          <properties class="ui.InstagramProfileUI" method="&lt;init&gt;">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -224,21 +215,30 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java</url>
-          <line>73</line>
+          <line>74</line>
           <properties class="ui.SearchPanelUI" method="displayResults">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java</url>
+          <line>100</line>
+          <properties class="database.UserDAOImpl" method="fecthFollower">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
-          <line>69</line>
+          <line>74</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java</url>
-          <line>54</line>
+          <line>57</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -258,18 +258,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java</url>
-          <line>93</line>
+          <line>99</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java</url>
-          <line>175</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ui/ExploreUIPanel.java</url>
-          <line>180</line>
-          <option name="timeStamp" value="64" />
+          <url>file://$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java</url>
+          <line>126</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />

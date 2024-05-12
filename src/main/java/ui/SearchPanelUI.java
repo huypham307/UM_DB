@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -78,8 +79,13 @@ public class SearchPanelUI extends JFrame {
                 contentPanel.add(button);
                 button.addActionListener(e -> {
                     this.dispose(); // Close the current frame
-                    User user = new User(element); 
-                    InstagramProfileUI profileUI = new InstagramProfileUI(user);
+                    User user = new User(element);
+                    InstagramProfileUI profileUI = null;
+                    try {
+                        profileUI = new InstagramProfileUI(user);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     profileUI.setVisible(true);
                 });
             }

@@ -8,6 +8,7 @@ import utils.HeaderPanelManager;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 public class SignInUI extends JFrame {
 
@@ -120,7 +121,12 @@ public class SignInUI extends JFrame {
 
         // Open the SignInUI frame
         SwingUtilities.invokeLater(() -> {
-            InstagramProfileUI profileUI = new InstagramProfileUI(userAuthenticator.getAuthorizedUser());
+            InstagramProfileUI profileUI = null;
+            try {
+                profileUI = new InstagramProfileUI(userAuthenticator.getAuthorizedUser());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             profileUI.setVisible(true);
         });
         } else {
