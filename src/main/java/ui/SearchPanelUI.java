@@ -7,9 +7,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
+import database.UserDAO;
+import database.UserDAOImpl;
 import usermanager.User;
 import utils.HeaderPanelManager;
 import utils.NavigationManager;
@@ -22,7 +25,7 @@ public class SearchPanelUI extends JFrame {
     private JPanel navigationPanel;
     String searchString;
     private final String credentialsFilePath = "src/main/java/data/credentials.txt";
-    ArrayList<String> usernameList;
+    List<User> usernameList;
 
     public SearchPanelUI(){
         setTitle("Search results");
@@ -39,14 +42,15 @@ public class SearchPanelUI extends JFrame {
         NavigationManager navigationManager = new NavigationManager(this);
         navigationPanel = navigationManager.createNavigationPanel(); // Reuse the createNavigationPanel method
 
-        usernameList = new ArrayList<>(); // Arraylist for storing usernames including the searched string
+        List<User> usernameList = new ArrayList<>(); // Arraylist for storing usernames including the searched string
+
         searchString = ExploreUIPanel.input;
         System.out.println("Search: " + searchString);
 
         contentPanel = new JPanel(); //Main panel for holding ui elements
-        contentPanel.setLayout(new GridLayout(10 + usernameList.size(),1,4,4));
- 
         addResults(searchString);
+        contentPanel.setLayout(new GridLayout(10 + usernameList.size(),1,4,4));
+
         displayResults();
 
         JScrollPane scrollPane = new JScrollPane(contentPanel);
@@ -58,28 +62,19 @@ public class SearchPanelUI extends JFrame {
      
     // Add appropriate results to the ArrayList
     public void addResults(String search) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(credentialsFilePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] credentials = line.split(":");
-                if (line.startsWith(search)) {
-                    usernameList.add(credentials[0]);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        usernameList = UserDAOImpl.getInstance().fecthUsernames(search);
     }
 
     // Display the search results in a list view
     public void displayResults(){
-        if(usernameList.size() > 0){
-            for (String element : usernameList){
-                JButton button = new JButton(element);
+        if(!usernameList.isEmpty()){
+            for (User element : usernameList){
+                String elementName = element.getUsername();
+                JButton button = new JButton(elementName);
                 contentPanel.add(button);
                 button.addActionListener(e -> {
                     this.dispose(); // Close the current frame
-                    User user = new User(element);
+                    User user = new User(elementName);
                     InstagramProfileUI profileUI = null;
                     try {
                         profileUI = new InstagramProfileUI(user);

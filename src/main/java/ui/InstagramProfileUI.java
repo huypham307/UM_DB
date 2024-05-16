@@ -40,7 +40,7 @@ public class InstagramProfileUI extends JFrame {
     private int loggedInUserID;
     private boolean isAlreadyFollowed;
     JButton followButton;
-    Path imageDir = Paths.get("img", "uploaded");
+    Path imageDir = Paths.get("src/main/java/img", "uploaded");
 
     ActionListener followAction;
     JPanel topHeaderPanel;

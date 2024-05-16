@@ -202,22 +202,8 @@ public class ImageUploadUI extends JFrame {
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         ImageDAOImpl.getInstance().insert(image_id, user_id, bio, timestamp, filePath);
 
-        /*
-        try {
-            User user = UserDAOImpl.getInstance().fecthUserData(username);
-            int user_id = user.getUserID();
-            Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
-            ImageDAOImpl.getInstance().insert(user_id, bio, timestamp);
-        } catch (SQLException e){
-            throw new RuntimeException(e);
-
-        }
-         */
-
     }
 
-
-    //file handlers not needed anymore
     private String getFileExtension(File file) {
         String name = file.getName();
         int lastIndexOf = name.lastIndexOf(".");
@@ -226,8 +212,4 @@ public class ImageUploadUI extends JFrame {
         }
         return name.substring(lastIndexOf + 1);
     }
-
-
-    // this will use sessions table
-
 }
