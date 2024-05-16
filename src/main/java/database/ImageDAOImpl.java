@@ -22,15 +22,17 @@ public class ImageDAOImpl implements ImageDAO {
         return instance;
     }
 
-    public void insert(int userID, String imageBio, Timestamp time){
-        String query = "INSERT INTO image_data (userID, imageBio, time) VALUES (?,?,?)";
+    public void insert(String image_id, int user_id, String image_bio, Timestamp post_time, String filepath){
+        String query = "INSERT INTO image_data (image_id, user_id, image_bio, post_time, file_path) VALUES (?,?,?,?,?)";
         Connection conn;
         try{
             conn = dataSource.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, userID);
-            stmt.setString(2, imageBio);
-            stmt.setTimestamp(3, time);
+            stmt.setString(1, image_id);
+            stmt.setInt(2, user_id);
+            stmt.setString(3, image_bio);
+            stmt.setTimestamp(4, post_time);
+            stmt.setString(5, filepath);
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

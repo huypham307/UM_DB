@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +223,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java</url>
-          <line>39</line>
+          <line>41</line>
           <properties class="database.ImageDAOImpl" method="fetchFollowedImage">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -269,7 +272,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java</url>
-          <line>68</line>
+          <line>70</line>
           <option name="timeStamp" value="79" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">

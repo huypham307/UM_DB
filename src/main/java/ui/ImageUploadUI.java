@@ -2,6 +2,12 @@ package ui;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import database.ImageDAOImpl;
+import database.PostDAOImpl;
+import database.SessionsDAOImpl;
+import database.UserDAOImpl;
+import usermanager.User;
+import usermanager.UserAuthenticator;
 import utils.HeaderPanelManager;
 import utils.NavigationManager;
 
@@ -12,6 +18,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -28,19 +37,22 @@ public class ImageUploadUI extends JFrame {
     ImageIcon imageIcon;
     JFileChooser fileChooser;
 
+    User currentUser;
+
 
     public ImageUploadUI() {
+        currentUser = UserAuthenticator.getInstance().getAuthorizedUser();
         setTitle("Upload Image");
         setSize(WIDTH, HEIGHT);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         initializeUI();
-        
+
     }
 
     private void initializeUI() {
-         // Reuse the createNavigationPanel method
+        // Reuse the createNavigationPanel method
         HeaderPanelManager headerPanelManager = new HeaderPanelManager();
         headerPanel = headerPanelManager.createHeaderPanel("Upload Imge"); // Reuse the createHeaderPanel method
 
@@ -98,7 +110,7 @@ public class ImageUploadUI extends JFrame {
         fileChooser.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "png", "jpg", "jpeg");
         fileChooser.addChoosableFileFilter(filter);
-    
+
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             tryFile();
@@ -107,36 +119,39 @@ public class ImageUploadUI extends JFrame {
 
     public void tryFile(){
         File selectedFile = fileChooser.getSelectedFile();
-            try {
-                String username = readUsername(); // Read username from users.txt
-                int imageId = getNextImageId(username);
-                String fileExtension = getFileExtension(selectedFile);
-                String newFileName = username + "_" + imageId + "." + fileExtension;
-    
-                Path destPath = Paths.get("src/main/java/img", "uploaded", newFileName);
-                Files.copy(selectedFile.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
-    
-                // Save the bio and image ID to a text file
-                saveImageInfo(username + "_" + imageId, username, bioTextArea.getText());
-    
-                // Load the image from the saved path
-                imageIcon = new ImageIcon(destPath.toString());
-    
-                // Check if imagePreviewLabel has a valid size
-                if (imagePreviewLabel.getWidth() > 0 && imagePreviewLabel.getHeight() > 0) {
-                    scaleImage();
-                }
-    
-                imagePreviewLabel.setIcon(imageIcon);
-    
-    
-                // Change the text of the upload button
-                uploadButton.setText("Upload Another Image");
-    
-                JOptionPane.showMessageDialog(this, "Image uploaded and preview updated!");
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error saving image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        try {
+            String username = currentUser.getUsername(); // Read username from users.txt
+            int nextImageId = getNextImageId(username);
+            String fileExtension = getFileExtension(selectedFile);
+            String newFileName = username + "_" + nextImageId + "." + fileExtension;
+            String imageID = username + "_" + nextImageId;
+
+            Path destPath = Paths.get("src/main/java/img", "uploaded", newFileName);
+            String destPathString = destPath.toString();
+
+            Files.copy(selectedFile.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
+
+            // write data to the database
+            saveImageInfo(imageID, username, bioTextArea.getText(),destPathString);
+
+            // Load the image from the saved path
+            imageIcon = new ImageIcon(destPath.toString());
+
+            // Check if imagePreviewLabel has a valid size
+            if (imagePreviewLabel.getWidth() > 0 && imagePreviewLabel.getHeight() > 0) {
+                scaleImage();
             }
+
+            imagePreviewLabel.setIcon(imageIcon);
+
+
+            // Change the text of the upload button
+            uploadButton.setText("Upload Another Image");
+
+            JOptionPane.showMessageDialog(this, "Image uploaded and preview updated!");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error saving image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     public void scaleImage(){
         Image image = imageIcon.getImage();
@@ -150,16 +165,16 @@ public class ImageUploadUI extends JFrame {
         double scale = Math.min(widthRatio, heightRatio);
         int scaledWidth = (int) (scale * imageWidth);
         int scaledHeight = (int) (scale * imageHeight);
-        
+
         imageIcon.setImage(image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH));
     }
-    
+
     private int getNextImageId(String username) throws IOException {
         Path storageDir = Paths.get("src/main/java/img", "uploaded"); // Ensure this is the directory where images are saved
         if (!Files.exists(storageDir)) {
             Files.createDirectories(storageDir);
         }
-    
+
         int maxId = 0;
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(storageDir, username + "_*")) {
             for (Path path : stream) {
@@ -180,21 +195,29 @@ public class ImageUploadUI extends JFrame {
         }
         return maxId + 1; // Return the next available ID
     }
-    
-    private void saveImageInfo(String imageId, String username, String bio) throws IOException {
-        Path infoFilePath = Paths.get("src/main/java/img", "image_details.txt");
-        if (!Files.exists(infoFilePath)) {
-            Files.createFile(infoFilePath);
+
+    private void saveImageInfo(String image_id, String username, String bio, String filePath) throws IOException {
+
+        int user_id = currentUser.getUserID();
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        ImageDAOImpl.getInstance().insert(image_id, user_id, bio, timestamp, filePath);
+
+        /*
+        try {
+            User user = UserDAOImpl.getInstance().fecthUserData(username);
+            int user_id = user.getUserID();
+            Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+            ImageDAOImpl.getInstance().insert(user_id, bio, timestamp);
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+
         }
-    
-        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    
-        try (BufferedWriter writer = Files.newBufferedWriter(infoFilePath, StandardOpenOption.APPEND)) {
-            writer.write(String.format("ImageID: %s, Username: %s, Bio: %s, Timestamp: %s, Likes: 0, UsersLikes: ", imageId, username, bio, timestamp));
-            writer.newLine();
-        }
-    
-}
+         */
+
+    }
+
+
+    //file handlers not needed anymore
     private String getFileExtension(File file) {
         String name = file.getName();
         int lastIndexOf = name.lastIndexOf(".");
@@ -204,14 +227,7 @@ public class ImageUploadUI extends JFrame {
         return name.substring(lastIndexOf + 1);
     }
 
-   private String readUsername() throws IOException {
-    Path usersFilePath = Paths.get("src/main/java/data", "users.txt");
-    try (BufferedReader reader = Files.newBufferedReader(usersFilePath)) {
-        String line = reader.readLine();
-        if (line != null) {
-            return line.split(":")[0]; // Extract the username from the first line
-        }
-    }
-    return null; // Return null if no username is found
-   }
- }
+
+    // this will use sessions table
+
+}
