@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment=".......:::::::::">
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" afterDir="false" />
+    <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment=".......::::::::: image upload handling">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ImageDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715345758534</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary=".......::::::::: image upload handling">
+      <option name="closed" value="true" />
+      <created>1715357809308</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715357809308</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,7 +139,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value=".......:::::::::" />
-    <option name="LAST_COMMIT_MESSAGE" value=".......:::::::::" />
+    <MESSAGE value=".......::::::::: image upload handling" />
+    <option name="LAST_COMMIT_MESSAGE" value=".......::::::::: image upload handling" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

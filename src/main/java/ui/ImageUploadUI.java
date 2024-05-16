@@ -4,8 +4,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import database.ImageDAOImpl;
 import database.PostDAOImpl;
+import database.SessionsDAOImpl;
 import database.UserDAOImpl;
 import usermanager.User;
+import usermanager.UserAuthenticator;
 import utils.HeaderPanelManager;
 import utils.NavigationManager;
 
@@ -16,6 +18,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -34,8 +37,11 @@ public class ImageUploadUI extends JFrame {
     ImageIcon imageIcon;
     JFileChooser fileChooser;
 
+    User currentUser;
+
 
     public ImageUploadUI() {
+        currentUser = UserAuthenticator.getInstance().getAuthorizedUser();
         setTitle("Upload Image");
         setSize(WIDTH, HEIGHT);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -114,16 +120,17 @@ public class ImageUploadUI extends JFrame {
     public void tryFile(){
         File selectedFile = fileChooser.getSelectedFile();
             try {
-                String username = readUsername(); // Read username from users.txt
-                int imageId = getNextImageId(username);
+                String username = currentUser.getUsername(); // Read username from users.txt
+                int nextImageId = getNextImageId(username);
                 String fileExtension = getFileExtension(selectedFile);
-                String newFileName = username + "_" + imageId + "." + fileExtension;
+                String newFileName = username + "_" + nextImageId + "." + fileExtension;
+                String imageID = username + "_" + nextImageId;
     
                 Path destPath = Paths.get("src/main/java/img", "uploaded", newFileName);
                 Files.copy(selectedFile.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
     
                 // write data to the database
-                saveImageInfo(username, bioTextArea.getText());
+                saveImageInfo(imageID, username, bioTextArea.getText());
     
                 // Load the image from the saved path
                 imageIcon = new ImageIcon(destPath.toString());
@@ -187,13 +194,26 @@ public class ImageUploadUI extends JFrame {
         return maxId + 1; // Return the next available ID
     }
     
-    private void saveImageInfo(String username, String bio) throws IOException {
-        User user = UserDAOImpl.getInstance().fecthUserData(username);
-        int user_id = user.getUserID();
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
-        ImageDAOImpl.getInstance().insert(user_id, bio, timestamp);
-    }
+    private void saveImageInfo(String image_id, String username, String bio) throws IOException {
 
+            User user = UserDAOImpl.getInstance().fecthUserData(username);
+            int user_id = user.getUserID();
+            Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+            ImageDAOImpl.getInstance().insert(image_id, user_id, bio, timestamp);
+
+        /*
+        try {
+            User user = UserDAOImpl.getInstance().fecthUserData(username);
+            int user_id = user.getUserID();
+            Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+            ImageDAOImpl.getInstance().insert(user_id, bio, timestamp);
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+
+        }
+         */
+
+    }
 
 
 //file handlers not needed anymore
@@ -208,14 +228,5 @@ public class ImageUploadUI extends JFrame {
 
 
     // this will use sessions table
-   private String readUsername() throws IOException {
-    Path usersFilePath = Paths.get("src/main/java/data", "users.txt");
-    try (BufferedReader reader = Files.newBufferedReader(usersFilePath)) {
-        String line = reader.readLine();
-        if (line != null) {
-            return line.split(":")[0]; // Extract the username from the first line
-        }
-    }
-    return null; // Return null if no username is found
-   }
+
  }
