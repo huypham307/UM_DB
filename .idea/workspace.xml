@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
+    <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="&quot;Resolve conflict&#10;&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Report.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Report.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,13 +118,23 @@
       <workItem from="1715597252502" duration="868000" />
       <workItem from="1715849868032" duration="896000" />
     </task>
+    <task id="LOCAL-00001" summary="&quot;Resolve conflict&#10;&quot;">
+      <option name="closed" value="true" />
+      <created>1716277279065</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716277279065</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="&quot;Resolve conflict&#10;&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Resolve conflict&#10;&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
