@@ -4,6 +4,8 @@ import exception.UserNotFoundException;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
     User user;
@@ -145,6 +147,30 @@ public class UserDAOImpl implements UserDAO {
         }
         return postNumber;
     }
+
+    public List<User> fecthUsernames(String input) {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM users WHERE username LIKE ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            preparedStatement.setString(1, "%" + input + "%");
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User(
+                            rs.getInt("user_id"),
+                            rs.getString("username"),
+                            rs.getString("bio"),
+                            rs.getString("password")
+                    );
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }
+        return users;
+    }
+
 
 
 

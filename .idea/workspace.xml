@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/Report.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/InstagramProfileUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignInUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SignUpUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,10 +123,6 @@
       <workItem from="1715261696382" duration="23403000" />
       <workItem from="1715597252502" duration="868000" />
       <workItem from="1715849868032" duration="896000" />
-      <workItem from="1715930574397" duration="84000" />
-      <workItem from="1715932139974" duration="16000" />
-      <workItem from="1715932973840" duration="19000" />
-      <workItem from="1716275108105" duration="1959000" />
     </task>
     <servers />
   </component>
@@ -169,15 +171,6 @@
           </properties>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
-        <line-breakpoint type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/usermanager/UserRegistrationHandler.java</url>
-          <line>31</line>
-          <properties class="usermanager.UserRegistrationHandler" method="handleProfilePictureUpload">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java</url>
           <line>195</line>
@@ -204,15 +197,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java</url>
-          <line>74</line>
-          <properties class="ui.SearchPanelUI" method="displayResults">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/utils/NavigationManager.java</url>
@@ -258,13 +242,8 @@
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java</url>
-          <line>99</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/database/UserDAOImpl.java</url>
-          <line>126</line>
+          <line>128</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
