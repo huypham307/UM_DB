@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="&quot;Resolve conflict&#10;&quot;">
+      <change afterPath="$PROJECT_DIR$/src/main/SQL/Procedures.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/SQL/Triggers.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/SQL/Views.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Report.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Report.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,40 +40,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.DatabaseConnector.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Encryptor.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ExploreUIPanel.executor&quot;: &quot;Run&quot;,
-    &quot;Application.FollowDAOImpl.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ImageDAOImpl.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ImageDataDAOImpl.executor&quot;: &quot;Run&quot;,
-    &quot;Application.NotificationsUI.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PostDAOImpl.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Program.executor&quot;: &quot;Run&quot;,
-    &quot;Application.QuakstagramHomeUI.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SessionsDAOImpl.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserDAOImpl.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserRelationshipManager.executor&quot;: &quot;Run&quot;,
-    &quot;Application.userDAOImpl.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mac/IdeaProjects/QuackstagramDB/src/main/ProjectImg&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.DatabaseConnector.executor": "Run",
+    "Application.Encryptor.executor": "Run",
+    "Application.ExploreUIPanel.executor": "Run",
+    "Application.FollowDAOImpl.executor": "Run",
+    "Application.ImageDAOImpl.executor": "Run",
+    "Application.ImageDataDAOImpl.executor": "Run",
+    "Application.NotificationsUI.executor": "Run",
+    "Application.PostDAOImpl.executor": "Run",
+    "Application.Program.executor": "Run",
+    "Application.QuakstagramHomeUI.executor": "Run",
+    "Application.SessionsDAOImpl.executor": "Run",
+    "Application.UserDAOImpl.executor": "Run",
+    "Application.UserRelationshipManager.executor": "Run",
+    "Application.userDAOImpl.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/mac/IdeaProjects/QuackstagramDB/src/main/SQL",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/SQL" />
       <recent name="$PROJECT_DIR$/src/main/ProjectImg" />
     </key>
   </component>
@@ -123,7 +126,7 @@
       <workItem from="1715261696382" duration="23403000" />
       <workItem from="1715597252502" duration="868000" />
       <workItem from="1715849868032" duration="896000" />
-      <workItem from="1716307498188" duration="9649000" />
+      <workItem from="1716307498188" duration="11711000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Resolve conflict&#10;&quot;">
       <option name="closed" value="true" />
