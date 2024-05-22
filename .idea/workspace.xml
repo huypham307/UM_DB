@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="&quot;Resolve conflict&#10;&quot;">
-      <change afterPath="$PROJECT_DIR$/src/main/SQL/Procedures.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/SQL/Triggers.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/SQL/Views.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="&quot;Resolve conflict&#10;&quot;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -126,7 +121,7 @@
       <workItem from="1715261696382" duration="23403000" />
       <workItem from="1715597252502" duration="868000" />
       <workItem from="1715849868032" duration="896000" />
-      <workItem from="1716307498188" duration="11711000" />
+      <workItem from="1716307498188" duration="12089000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Resolve conflict&#10;&quot;">
       <option name="closed" value="true" />
