@@ -145,14 +145,43 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
 
 2. **Views.sql**
    1. Create 3 Views for User Behavior, Content Popularity, and System Analytics
+      1.1 View to the session count for each user
+         <br/> Rationale: This view will help track user activity and engagement on the platform.
+         CREATE VIEW QuackstagramDB.user_session AS
+         SELECT user_id, COUNT(session_id) as session_count
+         FROM QuackstagramDB.sessions s
+         GROUP BY user_id
+         ORDER BY user_id ASC;
+
    2. Create Indexes for Performance Optimization
-      1. Index on `user_id` in `posts` table   
+      2.1. Index on `user_id` in `posts` table   
          <br/> Rationale: The fetching process is used frequently in the application. Besides, this fetching requires a join operation with the `users` table, then it is beneficial to have an index on the `user_id` column in the `posts` table.  
          <br/> Performance before indexing: 0.005 seconds  
          <br/> Performance after indexing: 0.003 seconds, 60% faster.
 
 3. **Triggers.sql**
-   - Create 1 Procedure, 1 Function, and 2 Triggers
+   1. Triggers to prevent users from liking their posts. This will help maintain the integrity and consistency of the database.
+      DELIMITER //
+
+   CREATE TRIGGER prevent_self_like
+   BEFORE INSERT
+   ON QuackstagramDB.posts
+   FOR EACH ROW
+   BEGIN
+   DECLARE owner_id INT;
+   
+       SELECT user_id into owner_id
+       FROM QuackstagramDB.image_data id 
+       WHERE NEW.image_id = id.image_id;
+       
+       IF NEW.user_id = owner_id THEN
+           SIGNAL SQLSTATE '45000'
+           SET MESSAGE_TEXT = 'A user cannot like their own post';
+       END IF;
+   END;
+   //
+
+   DELIMITER ;
 
 ---  
 
