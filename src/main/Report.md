@@ -183,7 +183,7 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
 
          2.2. Index on `username` in `users` table   
             <br/> Rationale: The fetching of the username is used very frequently in the application for numerous functionalities, while account creation is not as often meaning this index will not cause a big trade-off.
-            <br/> 
+            <br/>   
             <br/> 
 
 3. **Triggers.sql**
