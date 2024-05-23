@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="&quot;Resolve conflict&#10;&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/SQL/Views.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/SQL/Views.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/credentials.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/following.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/notifications.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/users.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +129,7 @@
       <workItem from="1716307498188" duration="12203000" />
       <workItem from="1716386866729" duration="19000" />
       <workItem from="1716387138058" duration="3405000" />
-      <workItem from="1716473589317" duration="501000" />
+      <workItem from="1716473589317" duration="1236000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Resolve conflict&#10;&quot;">
       <option name="closed" value="true" />

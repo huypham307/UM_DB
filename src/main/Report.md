@@ -131,7 +131,53 @@ Design a relational database schema based on Quackstagram’s features and funct
 4. **ERD**  
    ![ERD Diagram](src/main/ProjectImg/Screenshot 2024-05-21 at 10.21.43.png)
 
+5. **Table Example**
+   Users
 
+   | ID  | Name    | Code       | Description                         |
+   |-----|---------|------------|-------------------------------------|
+   | 1   | Lorin   | Š4ÇŠ4Ç     | Fierce warrior, not solo            |
+   | 2   | Xylo    | ʛMư˽{ƤʩOƗ | Humanoid robot much like the rest   |
+   | 3   | Zara    | ʛMư˽{ƤʩOƗ | Xylo and I are not the same!        |
+   | 4   | Mystar  | Š4ÇŠ4Ç     | Bio                                 |
+   | 5   | quack1  | Š4ÇŠ4ÇŠ4Ç  | This is my Bio                      |
+   | 6   | quacksta| Š4ÇŠ4ÇŠ4Ç  | Bio                                 |
+   | 7   | quack2  | Š4ÇŠ4ÇŠ4Ç  | Bio                                 |
+   | 8   | quack3  | Š4ÇŠ4ÇŠ4Ç  | Bio                                 |
+   | 9   | quack6  | ŧ5Ëŧ5Ëŧ5Ë  | Bio                                 |
+   | 10  | quack7  | Š4ÇŠ4ÇŠ4Ç  | Bio                                 |
+   | 11  | User111 | Š4ÇŠ4ÇŠ4Ç  | Bio1                                |
+   
+   Image_Data
+
+   | Image ID             | User ID | Caption                                                                 | Timestamp           | File Path                                     |
+   |----------------------|---------|-------------------------------------------------------------------------|---------------------|-----------------------------------------------|
+   | kidprobambo123_1     | 18      | Enter a caption                                                         | 2024-03-03 15:42:35 | src/main/java/img/uploaded/kidprobambo123_1.jpg |
+   | kidprobambo123_2     | 18      | Enter a caption                                                         | 2024-03-03 15:42:42 | src/main/java/img/uploaded/kidprobambo123_2.JPG |
+
+    Posts (Like Activity Log)
+
+   | Post ID | User ID | Image ID | Timestamp           |
+   |---------|---------|----------|---------------------|
+   | 62      | 1       | Mystar_1 | 2024-05-11 20:01:19 |
+   | 63      | 1       | Mystar_2 | 2024-05-11 20:02:10 |
+   | 64      | 1       | Zara_1   | 2024-05-12 15:23:51 |
+   | 65      | 1       | Xylo_1   | 2024-05-12 17:00:17 |
+   | 66      | 1       | Xylo_2   | 2024-05-12 17:00:18 |
+   
+   Sessions
+
+   | session_id | user_id |
+   |------------|---------|
+   | 1          | 3       |
+   | 2          | 20      |
+   | 3          | 20      |
+   | 4          | 20      |
+   | 5          | 3       |
+   | 6          | 20      |
+   | 7          | 20      |
+   
+   
 ---  
 
 ## Part B – Implement a MySQL-Compatible Relational Database Schema
