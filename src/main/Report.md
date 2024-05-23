@@ -152,11 +152,39 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
          GROUP BY user_id
          ORDER BY user_id ASC;
 
-   2. Create Indexes for Performance Optimization
-      2.1. Index on `user_id` in `posts` table   
-         <br/> Rationale: The fetching process is used frequently in the application. Besides, this fetching requires a join operation with the `users` table, then it is beneficial to have an index on the `user_id` column in the `posts` table.  
-         <br/> Performance before indexing: 0.005 seconds  
-         <br/> Performance after indexing: 0.003 seconds, 60% faster.
+      1.2 View to 5 most liked photos since 2024
+         <br/> Rationale: This will provide quick access to the most popular posts of this year
+         CREATE VIEW five_most_liked_2024 AS
+         SELECT image_id, COUNT(liker_id) as count
+         FROM posts
+         GROUP BY image_id
+         HAVING YEAR(MIN(time)) = 2024
+         ORDER BY count DESC
+         LIMIT 5;
+   
+         1.3 View to number of photos with at least 2 likes for each year
+         <br/> Rationale: This will provide information on how active the platform is every year for system analytics
+         CREATE VIEW posts_with_2_likes_per_year AS
+         SELECT YEAR(time) as year, Count(image_id) as post_count
+         FROM posts
+         WHERE image_id IN
+            (SELECT image_id
+            FROM posts
+            GROUP BY image_id
+            HAVING COUNT(liker_id) > 2)
+         GROUP BY year;
+
+
+      2. Create Indexes for Performance Optimization
+         2.1. Index on `user_id` in `posts` table   
+            <br/> Rationale: The fetching process is used frequently in the application. Besides, this fetching requires a join operation with the `users` table, then it is beneficial to have an index on the `user_id` column in the `posts` table.  
+            <br/> Performance before indexing: 0.005 seconds  
+            <br/> Performance after indexing: 0.003 seconds, 60% faster.
+
+         2.2. Index on `username` in `users` table   
+            <br/> Rationale: The fetching of the username is used very frequently in the application for numerous functionalities, while account creation is not as often meaning this index will not cause a big trade-off.
+            <br/> 
+            <br/> 
 
 3. **Triggers.sql**
    1. Triggers to prevent users from liking their posts. This will help maintain the integrity and consistency of the database.
@@ -305,24 +333,118 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    LIMIT X) as temp
    -- X is the number of top users you want to display
 
-   10. Find posts that have been liked by all users.
+10. Find posts that have been liked by all users.
 
-   SELECT image_id
-   FROM QuackstagramDB.posts p
-   GROUP BY image_id
-   HAVING COUNT(p.liker_id) = (SELECT COUNT(*) FROM QuackstagramDB.users);
+    SELECT image_id
+    FROM QuackstagramDB.posts p
+    GROUP BY image_id
+    HAVING COUNT(p.liker_id) = (SELECT COUNT(*) FROM QuackstagramDB.users);
 
    
 11. Display the most active user.
+
+   SELECT post_counts.user_id, posts_count + likes_count AS combined_count
+   FROM (
+      SELECT user_id, COUNT(image_data.image_id) AS posts_count
+      FROM image_data
+      GROUP BY user_id
+   ) AS post_counts
+   LEFT JOIN (
+      SELECT liker_id AS user_id, COUNT(post_id) AS likes_count
+      FROM posts
+      GROUP BY liker_id
+   ) AS like_counts ON post_counts.user_id = like_counts.user_id
+   ORDER BY combined_count DESC
+   LIMIT 1;
+
 12. Find the average number of likes per post for each user.
+
+   SELECT user_id, COUNT(p.image_id) AS total_likes,  AVG((SELECT COUNT(liker_id) FROM posts WHERE image_id = p.image_id)) AS avg_likes
+   FROM image_data JOIN posts AS p ON image_data.image_id = p.image_id
+   GROUP BY user_id;
+
 13. Show posts that have more comments than likes.
 14. List the users who have liked every post of a specific user.
+
+   SELECT liker_id
+   FROM posts
+   WHERE image_id IN (
+      SELECT image_id
+      FROM image_data
+      WHERE user_id = X
+   )
+   GROUP BY liker_id
+   HAVING COUNT(DISTINCT image_id) = (
+      SELECT COUNT (DISTINCT image_id)
+      FROM image_data
+      WHERE user_id = X);
+
 15. Display the most popular post of each user.
+
+   SELECT users.user_id, posts.image_id, COUNT(posts.liker_id) AS like_count
+   FROM posts JOIN image_data ON posts.image_id = image_data.image_id JOIN users ON image_data.user_id = users.user_id
+   GROUP BY users.user_id, posts.image_id
+   HAVING like_count = (
+      SELECT MAX(likes)
+      FROM (
+         SELECT image_id, COUNT(liker_id) AS likes
+         FROM posts p
+         WHERE p.image_id = posts.image_id
+         GROUP BY p.image_id
+      ) AS inner_query );
+
 16. Find the user(s) with the highest ratio of followers to following.
+
+   SELECT f.user_id, f.followed_by, fc.following, f.followed_by / fc.following AS ratio
+   FROM (SELECT followee_id AS user_id, COUNT(follower_id) AS followed_by
+      FROM follows
+      GROUP BY followee_id) f
+   LEFT JOIN (SELECT follower_id AS user_id, COUNT(followee_id) AS following
+      FROM follows
+      GROUP BY follower_id) fc
+   ON f.user_id = fc.user_id
+   ORDER BY ratio DESC
+   LIMIT X;
+   -- X is the number of users you want to display, for the single user with the highest ratio X will be 1
+
 17. Show the month with the highest number of posts made.
+
+    SELECT MONTH(post_time) AS month, COUNT(*) AS post_count
+    FROM image_data
+    GROUP BY month
+    ORDER BY post_count DESC
+    LIMIT 1;
+    -- case disregarding the year, only looking at the month 
+
+    SELECT YEAR(post_time) AS year, MONTH(post_time) AS month, COUNT(*) AS post_count
+    FROM image_data
+    GROUP BY year, month
+    ORDER BY post_count DESC
+    LIMIT 1;
+    -- case taking both the year and month into account
+
 18. Identify users who have not interacted with a specific user’s posts.
+
+   SELECT user_id
+   FROM users
+   WHERE user_id NOT IN
+      (SELECT liker_id
+      FROM posts
+      WHERE image_id IN
+         (SELECT image_id
+         FROM image_data
+         WHERE user_id = X));
+   -- X is the user_id of the user's posts of which you want to check
+
 19. Display the user with the greatest increase in followers in the last X days.
 20. Find users who are followed by more than X% of the platform users.
+
+   SELECT follows.followee_id as user_id, count(follower_id) as followed_by
+   FROM follows INNER JOIN users ON follows.followee_id = users.user_id
+   GROUP BY follows.followee_id
+   HAVING COUNT(follower_id) > (SELECT Count(*) * X as user_count
+   FROM users u);
+   -- X is the percent of the users which you want to check, for example for 3% of users, X will be 0.03
 
 ---  
 

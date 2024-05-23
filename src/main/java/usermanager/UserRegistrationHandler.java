@@ -17,7 +17,7 @@ import java.awt.image.BufferedImage;
 public class UserRegistrationHandler extends JFrame {
 
 
-    private final String profilePhotoStoragePath = "/Users/mac/IdeaProjects/QuackstagramDB/src/main/java/img/storage/profile/";
+    private final String profilePhotoStoragePath = "src/main/java/img/storage/profile";
 
     public boolean doesUsernameExist(String username) {
         try{
