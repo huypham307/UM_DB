@@ -144,14 +144,14 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
 
 2. **Views.sql**
    1. Create 3 Views for User Behavior, Content Popularity, and System Analytics
-      1.1 View to display the most active user in a period of time (user who likes more than 50 posts).
+      1.1 View to display the most active user in a period of time (user who likes more than 5 posts).
          <br/> Rationale: This view will help track user activity and engagement on the platform.
       CREATE VIEW ActiveUsers AS
       SELECT liker_id, COUNT(*) AS post_count
       FROM posts
       WHERE time >= '2024-05-01' AND time <= '2024-05-31'
       GROUP BY liker_id
-      HAVING COUNT(*) > 50;
+      HAVING COUNT(*) > 5;
 
    2. Create Indexes for Performance Optimization
       2.1. Index on `user_id` in `posts` table   
@@ -398,4 +398,4 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
 ---  
 
 ## Conclusion
-This template provides a structured outline for completing and documenting your final project. Ensure you follow the specifications closely and provide clear, concise documentation and code. Good luck with your project!
+This template provides a structured outline for completing and documenting your final project.
