@@ -144,13 +144,14 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
 
 2. **Views.sql**
    1. Create 3 Views for User Behavior, Content Popularity, and System Analytics
-      1.1 View to the session count for each user
+      1.1 View to display the most active user in a period of time (user who likes more than 50 posts).
          <br/> Rationale: This view will help track user activity and engagement on the platform.
-         CREATE VIEW QuackstagramDB.user_session AS
-         SELECT user_id, COUNT(session_id) as session_count
-         FROM QuackstagramDB.sessions s
-         GROUP BY user_id
-         ORDER BY user_id ASC;
+      CREATE VIEW ActiveUsers AS
+      SELECT liker_id, COUNT(*) AS post_count
+      FROM posts
+      WHERE time >= '2024-05-01' AND time <= '2024-05-31'
+      GROUP BY liker_id
+      HAVING COUNT(*) > 50;
 
    2. Create Indexes for Performance Optimization
       2.1. Index on `user_id` in `posts` table   
