@@ -131,7 +131,53 @@ Design a relational database schema based on Quackstagram’s features and funct
 4. **ERD**  
    ![ERD Diagram](src/main/ProjectImg/Screenshot 2024-05-21 at 10.21.43.png)
 
+5. **Table Example**
+   Users
 
+   | ID  | Name    | Code       | Description                         |
+   |-----|---------|------------|-------------------------------------|
+   | 1   | Lorin   | Š4ÇŠ4Ç     | Fierce warrior, not solo            |
+   | 2   | Xylo    | ʛMư˽{ƤʩOƗ | Humanoid robot much like the rest   |
+   | 3   | Zara    | ʛMư˽{ƤʩOƗ | Xylo and I are not the same!        |
+   | 4   | Mystar  | Š4ÇŠ4Ç     | Bio                                 |
+   | 5   | quack1  | Š4ÇŠ4ÇŠ4Ç  | This is my Bio                      |
+   | 6   | quacksta| Š4ÇŠ4ÇŠ4Ç  | Bio                                 |
+   | 7   | quack2  | Š4ÇŠ4ÇŠ4Ç  | Bio                                 |
+   | 8   | quack3  | Š4ÇŠ4ÇŠ4Ç  | Bio                                 |
+   | 9   | quack6  | ŧ5Ëŧ5Ëŧ5Ë  | Bio                                 |
+   | 10  | quack7  | Š4ÇŠ4ÇŠ4Ç  | Bio                                 |
+   | 11  | User111 | Š4ÇŠ4ÇŠ4Ç  | Bio1                                |
+   
+   Image_Data
+
+   | Image ID             | User ID | Caption                                                                 | Timestamp           | File Path                                     |
+   |----------------------|---------|-------------------------------------------------------------------------|---------------------|-----------------------------------------------|
+   | kidprobambo123_1     | 18      | Enter a caption                                                         | 2024-03-03 15:42:35 | src/main/java/img/uploaded/kidprobambo123_1.jpg |
+   | kidprobambo123_2     | 18      | Enter a caption                                                         | 2024-03-03 15:42:42 | src/main/java/img/uploaded/kidprobambo123_2.JPG |
+
+    Posts (Like Activity Log)
+
+   | Post ID | User ID | Image ID | Timestamp           |
+   |---------|---------|----------|---------------------|
+   | 62      | 1       | Mystar_1 | 2024-05-11 20:01:19 |
+   | 63      | 1       | Mystar_2 | 2024-05-11 20:02:10 |
+   | 64      | 1       | Zara_1   | 2024-05-12 15:23:51 |
+   | 65      | 1       | Xylo_1   | 2024-05-12 17:00:17 |
+   | 66      | 1       | Xylo_2   | 2024-05-12 17:00:18 |
+   
+   Sessions
+
+   | session_id | user_id |
+   |------------|---------|
+   | 1          | 3       |
+   | 2          | 20      |
+   | 3          | 20      |
+   | 4          | 20      |
+   | 5          | 3       |
+   | 6          | 20      |
+   | 7          | 20      |
+   
+   
 ---  
 
 ## Part B – Implement a MySQL-Compatible Relational Database Schema
@@ -144,13 +190,14 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
 
 2. **Views.sql**
    1. Create 3 Views for User Behavior, Content Popularity, and System Analytics
-      1.1 View to the session count for each user
+      1.1 View to display the most active user in a period of time (user who likes more than 5 posts).
          <br/> Rationale: This view will help track user activity and engagement on the platform.
-         CREATE VIEW QuackstagramDB.user_session AS
-         SELECT user_id, COUNT(session_id) as session_count
-         FROM QuackstagramDB.sessions s
-         GROUP BY user_id
-         ORDER BY user_id ASC;
+      CREATE VIEW ActiveUsers AS
+      SELECT liker_id, COUNT(*) AS post_count
+      FROM posts
+      WHERE time >= '2024-05-01' AND time <= '2024-05-31'
+      GROUP BY liker_id
+      HAVING COUNT(*) > 5;
 
       1.2 View to 5 most liked photos since 2024
          <br/> Rationale: This will provide quick access to the most popular posts of this year
@@ -519,4 +566,4 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
 ---  
 
 ## Conclusion
-This template provides a structured outline for completing and documenting your final project. Ensure you follow the specifications closely and provide clear, concise documentation and code. Good luck with your project!
+This template provides a structured outline for completing and documenting your final project.
