@@ -16,6 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comments` (
+  `comment_id` int NOT NULL AUTO_INCREMENT,
+  `commenter_id` int NOT NULL,
+  `comment_text` text NOT NULL,
+  `comment_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `image_id` varchar(32) NOT NULL,
+  PRIMARY KEY (`comment_id`),
+  KEY `comment_ibfk_2` (`commenter_id`),
+  KEY `fk_image_id` (`image_id`),
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`commenter_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `fk_image_id` FOREIGN KEY (`image_id`) REFERENCES `image_data` (`image_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comments`
+--
+
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+INSERT INTO `comments` VALUES (1,1,'Great post!','2024-05-01 10:00:00','Mystar_1'),(2,2,'Interesting perspective.','2024-05-01 10:05:00','Lorin_1'),(3,3,'Thanks for sharing!','2024-05-01 10:10:00','Lorin_1'),(4,4,'I enjoyed this!','2024-05-01 10:15:00','Lorin_1'),(5,5,'Well written!','2024-05-01 10:20:00','Lorin_1'),(6,2,'I agree with you.','2024-05-01 10:25:00','Lorin_1'),(7,3,'Nice post!','2024-05-01 10:30:00','Lorin_1'),(8,4,'This is very informative.','2024-05-01 10:35:00','Lorin_1'),(9,5,'Good read!','2024-05-01 10:40:00','Lorin_1'),(10,1,'Looking forward to more posts.','2024-05-01 10:45:00','Mystar_1');
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `follows`
 --
 
@@ -90,7 +121,7 @@ CREATE TABLE `posts` (
   KEY `idx_user_id` (`liker_id`),
   CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`liker_id`) REFERENCES `users` (`user_id`),
   CONSTRAINT `posts_ibfk_3` FOREIGN KEY (`image_id`) REFERENCES `image_data` (`image_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +147,7 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`session_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,32 +156,8 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (19,1),(20,1),(21,1),(22,1),(23,1),(24,1),(25,1),(26,1),(27,1),(28,1),(29,1),(30,1),(31,1),(32,1),(33,1),(34,1),(35,1),(36,1),(37,1),(38,1),(39,1),(40,1),(41,1),(42,1),(43,1),(44,1),(45,1),(46,1),(47,1),(48,1),(49,1),(50,1),(51,1),(52,1),(53,1),(54,1),(55,1),(56,1),(57,1),(58,1),(59,1),(60,1),(61,1),(62,1),(63,1),(64,1),(65,1),(66,1),(67,1),(68,1),(69,1),(70,1),(71,1),(72,1),(73,1),(74,1),(75,1),(76,1),(77,1),(78,1),(79,1),(80,1),(81,1),(82,1),(83,1),(84,1),(85,1),(86,1),(87,1),(88,1),(89,1),(90,1),(91,1),(92,1),(93,1),(94,1),(95,1),(96,1),(97,1),(98,1),(99,1),(100,1),(101,1),(102,1),(103,1),(104,1),(105,1),(106,1),(107,1),(108,1),(109,1),(110,1),(111,1),(112,1),(113,1),(114,1),(116,1),(117,1),(118,1),(119,1),(120,1),(122,1),(123,1),(126,1),(1,3),(5,3),(115,4),(121,4),(2,20),(3,20),(4,20),(6,20),(7,20),(8,20),(9,20),(13,20),(10,25),(14,25),(15,25),(16,25),(17,25),(18,25),(11,27),(12,27),(124,67),(125,67);
+INSERT INTO `sessions` VALUES (19,1),(20,1),(21,1),(22,1),(23,1),(24,1),(25,1),(26,1),(27,1),(28,1),(29,1),(30,1),(31,1),(32,1),(33,1),(34,1),(35,1),(36,1),(37,1),(38,1),(39,1),(40,1),(41,1),(42,1),(43,1),(44,1),(45,1),(46,1),(47,1),(48,1),(49,1),(50,1),(51,1),(52,1),(53,1),(54,1),(55,1),(56,1),(57,1),(58,1),(59,1),(60,1),(61,1),(62,1),(63,1),(64,1),(65,1),(66,1),(67,1),(68,1),(69,1),(70,1),(71,1),(72,1),(73,1),(74,1),(75,1),(76,1),(77,1),(78,1),(79,1),(80,1),(81,1),(82,1),(83,1),(84,1),(85,1),(86,1),(87,1),(88,1),(89,1),(90,1),(91,1),(92,1),(93,1),(94,1),(95,1),(96,1),(97,1),(98,1),(99,1),(100,1),(101,1),(102,1),(103,1),(104,1),(105,1),(106,1),(107,1),(108,1),(109,1),(110,1),(111,1),(112,1),(113,1),(114,1),(116,1),(117,1),(118,1),(119,1),(120,1),(122,1),(123,1),(126,1),(127,1),(1,3),(5,3),(115,4),(121,4),(2,20),(3,20),(4,20),(6,20),(7,20),(8,20),(9,20),(13,20),(10,25),(14,25),(15,25),(16,25),(17,25),(18,25),(11,27),(12,27),(124,67),(125,67);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `user_posts`
---
-
-DROP TABLE IF EXISTS `user_posts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user_posts` (
-  `user_id` int NOT NULL,
-  `post_count` int DEFAULT '0',
-  PRIMARY KEY (`user_id`),
-  CONSTRAINT `user_posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_posts`
---
-
-LOCK TABLES `user_posts` WRITE;
-/*!40000 ALTER TABLE `user_posts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -196,6 +203,97 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'QuackstagramDB'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `generateUserReport` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`steve`@`localhost` PROCEDURE `generateUserReport`(
+    IN userID INT, 
+    IN reportMonth INT, 
+    IN reportYear INT
+)
+BEGIN
+    DECLARE post_count INT DEFAULT 0;
+    DECLARE like_count INT DEFAULT 0;
+    DECLARE start_date DATE;
+    DECLARE end_date DATE;
+
+    -- Calculate the start and end dates
+    SET start_date = STR_TO_DATE(CONCAT(reportYear, '-', reportMonth, '-01'), '%Y-%m-%d');
+    SET end_date = LAST_DAY(start_date);
+
+    -- Calculate total posts within the date range
+    SELECT COUNT(image_id)
+    INTO post_count
+    FROM QuackstagramDB.image_data id
+    WHERE id.user_id = userID AND post_time BETWEEN start_date AND end_date;
+
+    -- Calculate total likes received within the date range
+    SELECT COUNT(p.liker_id)
+    INTO like_count
+    FROM QuackstagramDB.posts p
+    JOIN QuackstagramDB.image_data id ON p.image_id = id.image_id
+    WHERE id.user_id = userID AND p.time BETWEEN start_date AND end_date;
+
+    SELECT post_count AS TotalPosts, like_count AS TotalLikesReceived;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `user_report` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`steve`@`localhost` PROCEDURE `user_report`(
+    IN userID INT, 
+    IN reportMonth INT, 
+    IN reportYear INT
+)
+BEGIN
+    DECLARE post_count INT DEFAULT 0;
+    DECLARE like_count INT DEFAULT 0;
+    DECLARE start_date DATE;
+    DECLARE end_date DATE;
+
+    -- Calculate the start and end dates
+    SET start_date = STR_TO_DATE(CONCAT(reportYear, '-', reportMonth, '-01'), '%Y-%m-%d');
+    SET end_date = LAST_DAY(start_date);
+
+    -- Calculate total posts within the date range
+    SELECT COUNT(image_id)
+    INTO post_count
+    FROM QuackstagramDB.image_data id
+    WHERE id.user_id = userID AND post_time BETWEEN start_date AND end_date;
+
+    -- Calculate total likes received within the date range
+    SELECT COUNT(p.liker_id)
+    INTO like_count
+    FROM QuackstagramDB.posts p
+    JOIN QuackstagramDB.image_data id ON p.image_id = id.image_id
+    WHERE id.user_id = userID AND p.time BETWEEN start_date AND end_date;
+
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `user_session`
@@ -224,4 +322,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-22 13:09:59
+-- Dump completed on 2024-05-24 11:21:55
