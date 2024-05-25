@@ -349,8 +349,25 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
 |        2        |
 
 
-3. Find all comments made on a particular user’s post. 
-   We did not have a comment function working last period. So, we will not have a comment table to query.
+3. Find all comments made on a particular user’s post.
+
+   SELECT image_id, comment_id
+   FROM comments
+   WHERE image_id IN(
+      SELECT image_id
+      FROM image_data
+      WHERE user_id = X);
+   -- X is the user id of the user's posts which you want to check
+   -- case: all comments made on all posts of a particular user
+
+   Result for X = 4: 
+
+| image_id | comment_id |
+|----------|------------|
+| Mystar_1 |      1     |
+| Mystar_1 |     10     |
+
+
 4. Display the top X most liked posts.
 
    SELECT image_id, COUNT(liker_id) as number_likes
