@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="added search function using database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Report.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Report.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/SQL/Views.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/SQL/Views.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/FollowDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/FollowDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usermanager/UserRelationshipManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usermanager/UserRelationshipManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/BioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/BioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ButtonFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ButtonFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -7,12 +7,13 @@ GROUP BY liker_id
 HAVING COUNT(*) > 5;
 
 
--- View to 5 most liked photos since 2024. This will provide quick access to the most popular posts of this year
+-- View to 5 most liked photos in 2024. This will provide quick access to the most popular posts of this year
 CREATE VIEW five_most_liked_2024 AS
 SELECT image_id, COUNT(liker_id) as count
 FROM posts
+WHERE YEAR(time) = 2024
 GROUP BY image_id
-HAVING YEAR(MIN(time)) = 2024
+HAVING Count(post_id) > 2
 ORDER BY count DESC
 LIMIT 5;
 

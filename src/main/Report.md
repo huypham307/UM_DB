@@ -5,10 +5,10 @@
 
 ## Students
 
-| Student name | Student ID | Contributions |
-| ------------ | ---------- | ------------- |
-| H.PHAM       | i6358696   |               |
-| KAROL        |            |               |
+| Student name     | Student ID | Contributions |
+|------------------|------------| ------------- |
+| H.PHAM           | i6358696   |               |
+| KAROL PLANDOWSKI | i6365846   |               |
 
   
 ---  
@@ -147,6 +147,8 @@ Design a relational database schema based on Quackstagram’s features and funct
    | 9   | quack6  | ŧ5Ëŧ5Ëŧ5Ë  | Bio                                 |
    | 10  | quack7  | Š4ÇŠ4ÇŠ4Ç  | Bio                                 |
    | 11  | User111 | Š4ÇŠ4ÇŠ4Ç  | Bio1                                |
+
+Note: Users from id 108 onward have been created by an LLM, so their corresponding passwords were not encrypted.
    
    Image_Data
 
@@ -199,27 +201,28 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
       GROUP BY liker_id
       HAVING COUNT(*) > 5;
 
-      1.2 View to 5 most liked photos since 2024
+      1.2 View to 5 most liked photos in 2024
          <br/> Rationale: This will provide quick access to the most popular posts of this year
-         CREATE VIEW five_most_liked_2024 AS
-         SELECT image_id, COUNT(liker_id) as count
-         FROM posts
-         GROUP BY image_id
-         HAVING YEAR(MIN(time)) = 2024
-         ORDER BY count DESC
-         LIMIT 5;
-   
-         1.3 View to number of photos with at least 2 likes for each year
+      CREATE VIEW five_most_liked_2024 AS
+      SELECT image_id, COUNT(liker_id) as count
+      FROM posts
+      WHERE YEAR(time) = 2024
+      GROUP BY image_id
+      HAVING Count(post_id) > 2
+      ORDER BY count DESC
+      LIMIT 5;
+
+      1.3 View to number of photos with at least 2 likes for each year
          <br/> Rationale: This will provide information on how active the platform is every year for system analytics
-         CREATE VIEW posts_with_2_likes_per_year AS
-         SELECT YEAR(time) as year, Count(image_id) as post_count
-         FROM posts
-         WHERE image_id IN
-            (SELECT image_id
-            FROM posts
-            GROUP BY image_id
-            HAVING COUNT(liker_id) > 2)
-         GROUP BY year;
+      CREATE VIEW posts_with_2_likes_per_year AS
+      SELECT YEAR(time) as year, Count(image_id) as post_count
+      FROM posts
+      WHERE image_id IN
+      (SELECT image_id
+      FROM posts
+      GROUP BY image_id
+      HAVING COUNT(liker_id) > 2)
+      GROUP BY year;
 
 
       2. Create Indexes for Performance Optimization
@@ -324,6 +327,14 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    GROUP BY f.followee_id
    HAVING COUNT(follower_id) > X
 
+   Result for X = 1:
+
+| user_has_more_than |
+|--------------------|
+|         2          |
+|        322         |
+
+
 2. Show the total number of posts made by each user.
 
    SELECT COUNT(image_id) as number_of_posts
@@ -331,22 +342,48 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    WHERE id.user_id = X
    GROUP BY id.user_id
 
+   Result for X = 4:
+
+| number_of_posts |
+|-----------------|
+|        2        |
+
+
 3. Find all comments made on a particular user’s post. 
    We did not have a comment function working last period. So, we will not have a comment table to query.
 4. Display the top X most liked posts.
 
-   SELECT COUNT(liker_id) as number_likes
+   SELECT image_id, COUNT(liker_id) as number_likes
    FROM QuackstagramDB.posts p
    GROUP BY image_id
    ORDER BY number_likes DESC
    LIMIT X 
    -- Where X is the number of top posts you want to display
 
+   Result for X = 5:
+
+| image_id | number_likes |
+|----------|--------------|
+| Mystar_1 |      2       |
+| Mystar_2 |      2       |
+|  Xylo_1  |      2       |
+|  Xylo_2  |      2       |
+|  Xylo_3  |      2       |
+
+
 5. Count the number of posts each user has liked.
 
    SELECT liker_id,COUNT(image_id)
    FROM QuackstagramDB.posts p
    GROUP BY p.liker_id
+
+| liker_id | COUNT(image_id) |
+|----------|-----------------|
+|    1     |        8        |
+|    4     |        2        |
+|    67    |        8        |
+
+Note: Only showing users who have liked at least one post
 
 6. List all users who haven’t made a post yet.
 
@@ -355,11 +392,29 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    WHERE image_id is NULL
    ORDER BY user_id ASC
 
+   Result, only taking the first 5 results for the snapshot:
+
+| user_id | username |
+|---------|----------|
+|    5    |  quack1  |
+|    6    | quacksta |
+|    7    |  quack2  |
+|    8    |  quack3  |
+|    9    |  quack6  |
+
+
 7. List users who follow each other.
 
    SELECT f1.follower_id, f1.followee_id
    FROM QuackstagramDB.follows f1 LEFT JOIN QuackstagramDB.follows f2 ON f1.followee_id = f2.follower_id
    WHERE f1.follower_id = f2.followee_id AND  f1.followee_id > f1.follower_id
+
+   Result:
+
+| follower_id | followee_id |
+|-------------|-------------|
+|      1      |      2      |
+
 
 8. Show the user with the highest number of posts.
 
@@ -369,6 +424,13 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    GROUP BY id.user_id) as temp
    ORDER BY temp.number_of_posts DESC
    LIMIT 1
+
+   Result:
+
+| user_id |
+|---------|
+|    2    |
+
 
 9. List the top X users with the most followers.
 
@@ -380,6 +442,17 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    LIMIT X) as temp
    -- X is the number of top users you want to display
 
+   Result for X = 5:
+
+| user_id | number_of_follows |
+|---------|-------------------|
+|   322   |         36        |
+|    2    |         2         |
+|    3    |         1         |
+|    4    |         1         |
+|   381   |         1         |
+
+
 10. Find posts that have been liked by all users.
 
     SELECT image_id
@@ -387,10 +460,17 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
     GROUP BY image_id
     HAVING COUNT(p.liker_id) = (SELECT COUNT(*) FROM QuackstagramDB.users);
 
+   Result:
+
+| image_id |
+|----------|
+|          |
+
+Note: No posts in our database have been liked by all users
    
 11. Display the most active user.
 
-   SELECT post_counts.user_id, posts_count + likes_count AS combined_count
+   SELECT post_counts.user_id, posts_count, likes_count, posts_count + likes_count AS combined_count
    FROM (
       SELECT user_id, COUNT(image_data.image_id) AS posts_count
       FROM image_data
@@ -404,13 +484,51 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    ORDER BY combined_count DESC
    LIMIT 1;
 
+   Result:
+
+| user_id | posts_count | likes_count | combined_count |
+|---------|-------------|-------------|----------------|
+|    1    |      3      |      8      |       11       |
+
+
 12. Find the average number of likes per post for each user.
 
    SELECT user_id, COUNT(p.image_id) AS total_likes,  AVG((SELECT COUNT(liker_id) FROM posts WHERE image_id = p.image_id)) AS avg_likes
    FROM image_data JOIN posts AS p ON image_data.image_id = p.image_id
    GROUP BY user_id;
 
+   Result:
+
+| user_id | total_likes | avg_likes |
+|---------|-------------|-----------|
+|    1    |      2      |   1.0000  |
+|    4    |      4      |   2.0000  |
+|    2    |      8      |   2.0000  |
+|    3    |      4      |   2.0000  |
+
+Note: Only users who have at least one post with at least one like will be in this table
+
 13. Show posts that have more comments than likes.
+
+   SELECT c.image_id, c.comment_count, p.like_count
+   FROM
+   (SELECT image_id, Count(comment_id) as comment_count
+   FROM comments
+   GROUP BY image_id) as c
+   INNER JOIN
+   (SELECT image_id, Count(liker_id) as like_count
+   FROM posts
+   GROUP BY image_id) as p
+   ON c.image_id = p.image_id
+   WHERE c.comment_count > p.like_count;
+
+   Result:
+
+| image_id | comment_count | like_count |
+|----------|---------------|------------|
+| Lorin_1  |       8       |     1      |
+
+
 14. List the users who have liked every post of a specific user.
 
    SELECT liker_id
@@ -426,6 +544,16 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
       FROM image_data
       WHERE user_id = X);
 
+   -- X is the user id of the user whose posts you want to check
+
+   Result for X = 4:
+
+| liker_id |
+|----------|
+|    1     |
+|    67    |
+
+
 15. Display the most popular post of each user.
 
    SELECT users.user_id, posts.image_id, COUNT(posts.liker_id) AS like_count
@@ -438,7 +566,18 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
          FROM posts p
          WHERE p.image_id = posts.image_id
          GROUP BY p.image_id
-      ) AS inner_query );
+      ) AS selectLikes );
+
+   Result, only taking the first 5 results for the snapshot sorted by most popular:
+
+| user_id | image_id | like_count |
+|---------|----------|------------|
+|    4    | Mystar_1 |     2      |
+|    4    | Mystar_2 |     2      |
+|    2    |  Xylo_1  |     2      |
+|    2    |  Xylo_2  |     2      |
+|    2    |  Xylo_3  |     2      |
+
 
 16. Find the user(s) with the highest ratio of followers to following.
 
@@ -454,6 +593,13 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    LIMIT X;
    -- X is the number of users you want to display, for the single user with the highest ratio X will be 1
 
+   Result for X = 1:
+
+| user_id | followed_by | following | ratio  |
+|---------|-------------|-----------|--------|
+|   322   |      36     |     24    | 1.5000 |
+
+
 17. Show the month with the highest number of posts made.
 
     SELECT MONTH(post_time) AS month, COUNT(*) AS post_count
@@ -461,14 +607,27 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
     GROUP BY month
     ORDER BY post_count DESC
     LIMIT 1;
-    -- case disregarding the year, only looking at the month 
+    -- case disregarding the year, only looking at the month
 
-    SELECT YEAR(post_time) AS year, MONTH(post_time) AS month, COUNT(*) AS post_count
-    FROM image_data
-    GROUP BY year, month
-    ORDER BY post_count DESC
-    LIMIT 1;
-    -- case taking both the year and month into account
+   SELECT YEAR(post_time) AS year, MONTH(post_time) AS month, COUNT(*) AS post_count
+   FROM image_data
+   GROUP BY year, month
+   ORDER BY post_count DESC
+   LIMIT 1;
+   -- case taking both the year and month into account
+
+   Result case 1: 
+
+| month | post_count |
+|-------|------------|
+|   12  |      8     |
+
+   Result case 2: 
+
+| year | month | post_count |
+|------|-------|------------|
+| 2023 |   12  |      8     |
+ 
 
 18. Identify users who have not interacted with a specific user’s posts.
 
@@ -483,7 +642,33 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
          WHERE user_id = X));
    -- X is the user_id of the user's posts of which you want to check
 
+   Result for X = 1, only taking the first 5 results for the snapshot:
+
+| user_id |
+|---------|
+|   501   |
+|   365   |
+|   343   |
+|   375   |
+|   511   |
+
 19. Display the user with the greatest increase in followers in the last X days.
+
+    SELECT followee_id, Count(follower_id) as count
+    FROM follows
+    WHERE follow_time >= NOW() - INTERVAL X DAY
+    GROUP BY followee_id
+    ORDER BY count DESC
+    LIMIT 1;
+   -- X is the number of how many days back you want to check
+
+   Result for X = 10:
+
+| followee_id | count |
+|-------------|-------|
+|      2      |   2   |
+
+
 20. Find users who are followed by more than X% of the platform users.
 
    SELECT follows.followee_id as user_id, count(follower_id) as followed_by
@@ -492,6 +677,13 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    HAVING COUNT(follower_id) > (SELECT Count(*) * X as user_count
    FROM users u);
    -- X is the percent of the users which you want to check, for example for 3% of users, X will be 0.03
+
+   Result for X = 0.03:
+
+| user_id | followed_by |
+|---------|-------------|
+|   322   |      36     |
+
 
 ---  
 
