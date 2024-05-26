@@ -1,6 +1,8 @@
 package usermanager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +14,8 @@ import datahandler.FileHandler;
 
 public class UserRelationshipManager {
     public void followUser(int followerID, int followeeID) throws IOException {
-        FollowDAOImpl.getInstance().insertFollow(followerID, followeeID);
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        FollowDAOImpl.getInstance().insertFollow(followerID, followeeID, timestamp);
     }
 
     // Method to check if a user is already following another user

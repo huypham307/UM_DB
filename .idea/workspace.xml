@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="&quot;Resolve conflict&#10;&quot;">
+    <list default="true" id="a450bfd1-6401-4a7e-9024-130edb36fdf4" name="Changes" comment="added result snippets to report, changed bio fetching to database, removed unnecessary code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Report.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Report.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ImageUploadUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/QuakstagramHomeUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/SearchPanelUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ImageLikesManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/NavigationManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,46 +46,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DatabaseConnector.executor": "Run",
-    "Application.Encryptor.executor": "Run",
-    "Application.ExploreUIPanel.executor": "Run",
-    "Application.FollowDAOImpl.executor": "Run",
-    "Application.ImageDAOImpl.executor": "Run",
-    "Application.ImageDataDAOImpl.executor": "Run",
-    "Application.NotificationsUI.executor": "Run",
-    "Application.PostDAOImpl.executor": "Run",
-    "Application.Program.executor": "Run",
-    "Application.QuakstagramHomeUI.executor": "Run",
-    "Application.SessionsDAOImpl.executor": "Run",
-    "Application.UserDAOImpl.executor": "Run",
-    "Application.UserRelationshipManager.executor": "Run",
-    "Application.userDAOImpl.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/mac/IdeaProjects/QuackstagramDB/src/main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DatabaseConnector.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Encryptor.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExploreUIPanel.executor&quot;: &quot;Run&quot;,
+    &quot;Application.FollowDAOImpl.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ImageDAOImpl.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ImageDataDAOImpl.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NotificationsUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PostDAOImpl.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Program.executor&quot;: &quot;Run&quot;,
+    &quot;Application.QuakstagramHomeUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SessionsDAOImpl.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UserDAOImpl.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UserRelationshipManager.executor&quot;: &quot;Run&quot;,
+    &quot;Application.userDAOImpl.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mac/IdeaProjects/QuackstagramDB/src/main/SQL&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/SQL" />
       <recent name="$PROJECT_DIR$/src/main/ProjectImg" />
-    </key>
-    <key name="ImportExportFile.TargetDir.RECENT_KEYS">
-      <recent name="$USER_HOME$/Desktop/Dump Later" />
     </key>
   </component>
   <component name="RunManager">
@@ -141,7 +143,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716277279065</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added result snippets to report, changed bio fetching to database, removed unnecessary code">
+      <option name="closed" value="true" />
+      <created>1716673804161</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1716673804161</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,7 +159,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="&quot;Resolve conflict&#10;&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Resolve conflict&#10;&quot;" />
+    <MESSAGE value="added result snippets to report, changed bio fetching to database, removed unnecessary code" />
+    <option name="LAST_COMMIT_MESSAGE" value="added result snippets to report, changed bio fetching to database, removed unnecessary code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -219,7 +230,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/utils/NavigationManager.java</url>
-          <line>87</line>
+          <line>77</line>
           <properties class="utils.NavigationManager" method="openHomeUI">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -262,7 +273,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/utils/NavigationManager.java</url>
-          <line>92</line>
+          <line>82</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

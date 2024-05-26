@@ -4,10 +4,8 @@ import exception.UserNotFoundException;
 import usermanager.User;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class FollowDAOImpl implements FollowDAO{
@@ -40,19 +38,19 @@ public class FollowDAOImpl implements FollowDAO{
                 int followee_id = rs.getInt(1);
                 followees.add(followee_id);
             }
-            //Do somthing clever
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return followees;
     }
 
-    public void insertFollow(int followerID, int followeeID){
-        String query = "INSERT INTO QuackstagramDB.follows VALUES (?,?)";
+    public void insertFollow(int followerID, int followeeID, Timestamp time){
+        String query = "INSERT INTO QuackstagramDB.follows VALUES (?,?,?)";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)){
             pstmt.setInt(1, followerID);
             pstmt.setInt(2, followeeID);
+            pstmt.setTimestamp(3, time);
             pstmt.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -60,6 +58,7 @@ public class FollowDAOImpl implements FollowDAO{
     }
 
     public static void main(String[] args) {
-        FollowDAOImpl.getInstance().insertFollow(3,2);
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        FollowDAOImpl.getInstance().insertFollow(3,2, timestamp);
     }
 }

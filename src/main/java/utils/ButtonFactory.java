@@ -33,16 +33,12 @@ public class ButtonFactory {
     public JButton createFollowButton(boolean isCurrentUser, boolean isAlreadyFollowed, User user, ActionListener actionListener){
         // Follow Button
         JButton followButton = new JButton();
-        // Follow or Edit Profile Button
-        // followButton.addActionListener(e -> handleFollowAction(currentUser.getUsername()));
+
         if (isCurrentUser) {
             followButton.setText("Edit Profile");
-            //TODO: Action to edit profile
         } else {
             followButton.setText("Follow");
 
-            //TODO: Create a method isFollowedBy(String Username) to check is followed by that user
-            // Check if the current user is already being followed by the logged-in user
             if(isAlreadyFollowed){
                 followButton.setText("Following");
             }

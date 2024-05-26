@@ -5,12 +5,13 @@
 
 ## Students
 
-| Student name | Student ID | Contributions |
-| ------------ | ---------- | ------------- |
-| H.PHAM       | i6358696   |               |
-| KAROL        |            |               |
+| Student name     | Student ID | Contributions |
+|------------------|------------| ------------- |
+| H.PHAM           | i6358696   |               |
+| KAROL PLANDOWSKI | i6365846   |               |
 
----
+  
+---  
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
@@ -22,7 +23,7 @@
 7. [Submission Guidelines](#submission-guidelines)
 8. [Marking Scheme](#marking-scheme)
 
----
+---  
 
 ## Project Overview
 This version of the project aims to enhance the capabilities of Quackstagram by integrating a MySQL-compatible relational database schema. The Database Schema will be designed based on the features and functionalities of Quackstagram, and the application will be modified to interact with the database instead of text files. The project will also include the implementation of SQL queries to answer specific questions for Cheapo Technologies.
@@ -61,63 +62,69 @@ Design a relational database schema based on Quackstagram’s features and funct
             - Relationship: `image_id` in `posts` references `image_id` in `image_data`.
 
 3. **Normalization and Functional Dependencies**
-    - Functional Dependencies
-        - `users` Table:
-            - user_id -> username, password, bio
-            - username -> user_id, password, bio
-        - `posts` Table:
-            - post_id -> liker_id, image_id, timestamp
-            - liker_id, image_id -> post_id, timestamp
-        - `image_data` Table:
-            - image_id -> user_id, image_bio, post_time, file_path
-        - `follows` Table:
-            - follower_id, followee_id -> Unique key
-        - `sessions` Table:
-            - session_id -> user_id
-
-    - Normalize Tables up to 3NF or BCNF
-        - `users` Table: 3NF
-            - Attributes: user_id, username, password, bio
-            - Primary Key: user_id
-            - Proof of 3NF:
-                - Each attribute contains only atomic values -> 1NF
-                - All non-prime attributes are fully functionally dependent on the primary key -> 2NF
-                  - **username, password, bio** is not functionally dependent on **user_id**.
-                - No transitive dependencies because there are no non-prime attributes dependent on other non-prime attributes -> 3NF
-                  - **username, password, bio** is not dependent on **username, password, bio**.
-        - `posts` Table: 3NF
-            - Attributes: post_id, liker_id, image_id, timestamp
-            - Primary Key: post_id
-            - Proof of 3NF:
-                - Each attribute contains only atomic values -> 1NF
-                - No partial dependencies -> 2NF
-                  - **timestamp** is not partially dependent on **liker_id or image_id**.
-                - No transitive dependencies because there are no non-prime attributes dependent on other non-prime attributes -> 3NF
-                  - Because **post_id** is the key as well as the prime attribute, **liker_id, image_id, timestamp** are non-prime attribute.
-                  In this table, **liker_id, image_id or timestamp** is not dependent on other non-prime attributes. 
-        - `image_data` Table: 3NF
-            - Attributes: image_id, user_id, image_bio, post_time, file_path
-            - Primary Key: image_id
-            - Proof of 3NF:
-                - Each attribute contains only atomic values -> 1NF
-                - All non-prime attributes are fully functionally dependent on the primary key (`image_id`) -> 2NF
-                - No non-prime attributes dependent on other non-prime attributes -> 3NF
-        - `follows` Table: 3NF
-            - Attributes: follower_id, followee_id
-            - Primary Key: follower_id, followee_id
-            - Proof of 3NF:
-                - Each attribute contains only atomic values -> 1NF
-                - All non-prime attributes are fully functionally dependent on the primary key (`follower_id`, `followee_id`) -> 2NF
-                - No non-prime attributes dependent on other non-prime attributes -> 3NF
-        - `sessions` Table: 3NF
-            - Attributes: session_id, user_id
-            - Primary Key: session_id
-            - Proof of 3NF:
-                - Each attribute contains only atomic values -> 1NF
-                - All non-prime attributes are fully functionally dependent on the primary key (`session_id`) -> 2NF
-                - No non-prime attributes dependent on other non-prime attributes -> 3NF
-
-4. **ERD**
+   3.1 Functional Dependencies
+   3.1.1 Functional Dependencies for `users` Table'
+      - user_id -> username, password, bio
+      - username -> user_id, password, bio
+   3.1.2 Functional Dependencies for `posts` Table 
+      - post_id -> liker_id, image_id, timestamp
+      - liker_id, image_id -> post_id, timestamp
+   3.1.3 Functional Dependencies for `image_data` Table
+      - image_id -> user_id, image_bio, post_time, file_path
+   3.1.4 Functional Dependencies for `follows` Table
+      - follower_id, followee_id -> Unique key
+   3.1.5 Functional Dependencies for `sessions` Table
+      - session_id -> user_id
+   3.2 Normalize Tables up to 3NF or BCNF
+   3.2.1. `users` Table: 3NF
+      - Attributes: user_id, username, password, bio
+      - Primary Key: user_id
+      Proof of 3NF:
+      - Each attribute contains only atomic -> 1NF
+      - All non-prime attributes are fully functionally dependent on the primary key -> 2NF
+      - No transitive dependencies because there are no non-prime attributes dependent on other non-prime attributes. -> 3NF
+   3.2.2. `post` Table: 3NF
+      - Attributes: post_id, liker_id, image_id, timestamp
+      - Primary Key: post_id
+      - Candidate key: post_id, liker_id and image_id
+      - Prime Attribute: post_id, liker_id, image_id
+      - Non-Prime Attribute: timestamp
+      Proof of 3NF:
+      - Each attribute contains only atomic -> 1NF
+      - No partial dependencies (`timestamp` is not partially dependent on liker_id or image_id) -> 2NF
+      - No transitive dependencies because there are no non-prime attributes dependent on other non-prime attributes. -> 3NF
+   3.2.3. `image_data` Table: 3NF
+      - Attributes: image_id, user_id, image_bio, post_time, file_path
+      - Primary Key: image_id
+      - Candidate key: image_id
+      - Prime Attribute: image_id
+      - Non-Prime Attribute: user_id, image_bio, post_time, file_path
+      Proof of 3NF:
+      - Each attribute contains only atomic -> 1NF
+      - All non-prime attributes are fully functionally dependent on the primary key (`image_id`) -> 2NF
+      - No non-prime attributes dependent on other non-prime attributes. -> 3NF
+   3.2.4 `follows` Table: 3NF
+      - Attributes: follower_id, followee_id
+      - Primary Key: follower_id, followee_id
+      - Candidate key: follower_id, followee_id
+      - Prime Attribute: follower_id, followee_id
+      - Non-Prime Attribute: None 
+      Proof of 3NF:
+      - Each attribute contains only atomic -> 1NF
+      - All non-prime attributes are fully functionally dependent on the primary key (`follower_id`, `followee_id`) -> 2NF
+      - No non-prime attributes dependent on other non-prime attributes. -> 3NF
+   3.2.5 `sessions` Table: 3NF
+      - Attributes: session_id, user_id
+      - Primary Key: session_id
+      - Candidate key: session_id
+      - Prime Attribute: session_id
+      - Non-Prime Attribute: user_id
+      Proof of 3NF:
+      - Each attribute contains only atomic -> 1NF
+      - All non-prime attributes are fully functionally dependent on the primary key (`session_id`) -> 2NF
+      - No non-prime attributes dependent on other non-prime attributes. -> 3NF
+   
+4. **ERD**  
    ![ERD Diagram](src/main/ProjectImg/Screenshot 2024-05-21 at 10.21.43.png)
 
 ## Table Example
@@ -137,6 +144,8 @@ Design a relational database schema based on Quackstagram’s features and funct
 | 9        | quack6  | ŧ5Ëŧ5Ëŧ5Ë      | Bio                               |
 | 10       | quack7  | Š4ÇŠ4ÇŠ4Ç      | Bio                               |
 | 11       | User111 | Š4ÇŠ4ÇŠ4Ç      | Bio1     
+
+Note: Users from id 108 onward have been created by an LLM, so their corresponding passwords were not encrypted.
 
 - **Image Data**
 
@@ -184,7 +193,6 @@ Design a relational database schema based on Quackstagram’s features and funct
 ---
 
 ## Part B – Implement a MySQL-Compatible Relational Database Schema
-
 ### Objective
 Develop a MySQL database schema based on the design, and prepare it for integration with the Java application.
 
@@ -193,6 +201,50 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
     - The content of this will be included in the schema.sql file.
 
 2. **Views.sql**
+   1. Create 3 Views for User Behavior, Content Popularity, and System Analytics
+      1.1 View to display the most active user in a period of time (user who likes more than 5 posts).
+         <br/> Rationale: This view will help track user activity and engagement on the platform.
+      CREATE VIEW ActiveUsers AS
+      SELECT liker_id, COUNT(*) AS post_count
+      FROM posts
+      WHERE time >= '2024-05-01' AND time <= '2024-05-31'
+      GROUP BY liker_id
+      HAVING COUNT(*) > 5;
+
+      1.2 View to 5 most liked photos in 2024
+         <br/> Rationale: This will provide quick access to the most popular posts of this year
+      CREATE VIEW five_most_liked_2024 AS
+      SELECT image_id, COUNT(liker_id) as count
+      FROM posts
+      WHERE YEAR(time) = 2024
+      GROUP BY image_id
+      HAVING Count(post_id) > 2
+      ORDER BY count DESC
+      LIMIT 5;
+
+      1.3 View to number of photos with at least 2 likes for each year
+         <br/> Rationale: This will provide information on how active the platform is every year for system analytics
+      CREATE VIEW posts_with_2_likes_per_year AS
+      SELECT YEAR(time) as year, Count(image_id) as post_count
+      FROM posts
+      WHERE image_id IN
+      (SELECT image_id
+      FROM posts
+      GROUP BY image_id
+      HAVING COUNT(liker_id) > 2)
+      GROUP BY year;
+
+
+      2. Create Indexes for Performance Optimization
+         2.1. Index on `user_id` in `posts` table   
+            <br/> Rationale: The fetching process is used frequently in the application. Besides, this fetching requires a join operation with the `users` table, then it is beneficial to have an index on the `user_id` column in the `posts` table.  
+            <br/> Performance before indexing: 0.005 seconds  
+            <br/> Performance after indexing: 0.003 seconds, 60% faster.
+
+         2.2. Index on `username` in `users` table   
+            <br/> Rationale: The fetching of the username is used very frequently in the application for numerous functionalities, while account creation is not as often meaning this index will not cause a big trade-off.
+            <br/>   
+            <br/> 
     - Create 3 Views for User Behavior, Content Popularity, and System Analytics
         1. View to display the most active user in a period of time (user who likes more than 5 posts).
            ```sql
@@ -292,22 +344,21 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
 ---
 
 ## Part C – Integration and Functional Application Development
-
 ### Objective
 Integrate the designed database with the Java application to create a fully functional Quackstagram platform.
 
 ### Tasks
 1. **Database Connection**
-    - Set up JDBC Connection
-    - Provide Code for Database Connection, Querying, and Data Manipulation
+   - Set up JDBC Connection
+   - Provide Code for Database Connection, Querying, and Data Manipulation
 
 2. **Feature Implementation**
-    - Replace Text Files with Database for Key Features
+   - Replace Text Files with Database for Key Features
 
 3. **Error Handling and Security**
-    - Implement Error Handling for Database Interactions
+   - Implement Error Handling for Database Interactions
 
----
+---  
 
 ## Part D – Profit Maximization SQL Queries
 ### Objective
@@ -320,63 +371,131 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    FROM QuackstagramDB.follows f INNER JOIN QuackstagramDB.users u ON f.followee_id = u.user_id
    GROUP BY f.followee_id
    HAVING COUNT(follower_id) > X
+
+   Result for X = 1:
     ```
+| user_has_more_than |
+|--------------------|
+|         2          |
+|        322         |
+
+
 2. Show the total number of posts made by each user.
     ```sql
    SELECT COUNT(image_id) as number_of_posts
    FROM QuackstagramDB.image_data id INNER JOIN QuackstagramDB.users u ON id.user_id = u.user_id
    WHERE id.user_id = X
    GROUP BY id.user_id
+
+   Result for X = 4:
     ```
- 
+| number_of_posts |
+|-----------------|
+|        2        |
+
+
 3. Find all comments made on a particular user’s post.
     ```sql
-   SELECT comment_text
-   FROM QuackstagramDB.comments c INNER JOIN (SELECT image_id, username
-   FROM QuackstagramDB.image_data id INNER JOIN QuackstagramDB.users u
-   ON id.user_id = u.user_id) temp
-   ON c.image_id =  temp.image_id
-   WHERE username = "Mystar"
-   ```
+   SELECT image_id, comment_id
+   FROM comments
+   WHERE image_id IN(
+      SELECT image_id
+      FROM image_data
+      WHERE user_id = X);
+   -- X is the user id of the user's posts which you want to check
+   -- case: all comments made on all posts of a particular user
+    ```
+   Result for X = 4: 
+
+| image_id | comment_id |
+|----------|------------|
+| Mystar_1 |      1     |
+| Mystar_1 |     10     |
+
+
 4. Display the top X most liked posts.
-   ```sql
-   SELECT COUNT(liker_id) as number_likes
+
+   SELECT image_id, COUNT(liker_id) as number_likes
    FROM QuackstagramDB.posts p
    GROUP BY image_id
    ORDER BY number_likes DESC
    LIMIT X 
    -- Where X is the number of top posts you want to display
-    ```
+
+   Result for X = 5:
+
+| image_id | number_likes |
+|----------|--------------|
+| Mystar_1 |      2       |
+| Mystar_2 |      2       |
+|  Xylo_1  |      2       |
+|  Xylo_2  |      2       |
+|  Xylo_3  |      2       |
+
+
 5. Count the number of posts each user has liked.
-    ```sql
+
    SELECT liker_id,COUNT(image_id)
    FROM QuackstagramDB.posts p
    GROUP BY p.liker_id
-    ```
+
+| liker_id | COUNT(image_id) |
+|----------|-----------------|
+|    1     |        8        |
+|    4     |        2        |
+|    67    |        8        |
+
+Note: Only showing users who have liked at least one post
+
 6. List all users who haven’t made a post yet.
-   ```sql
+
    SELECT u.user_id, u.username
    FROM QuackstagramDB.users u LEFT JOIN QuackstagramDB.image_data id ON u.user_id = id.user_id
    WHERE image_id is NULL
    ORDER BY user_id ASC
-    ```
+
+   Result, only taking the first 5 results for the snapshot:
+
+| user_id | username |
+|---------|----------|
+|    5    |  quack1  |
+|    6    | quacksta |
+|    7    |  quack2  |
+|    8    |  quack3  |
+|    9    |  quack6  |
+
+
 7. List users who follow each other.
-    ```sql
+
    SELECT f1.follower_id, f1.followee_id
    FROM QuackstagramDB.follows f1 LEFT JOIN QuackstagramDB.follows f2 ON f1.followee_id = f2.follower_id
    WHERE f1.follower_id = f2.followee_id AND  f1.followee_id > f1.follower_id
-    ```
+
+   Result:
+
+| follower_id | followee_id |
+|-------------|-------------|
+|      1      |      2      |
+
+
 8. Show the user with the highest number of posts.
-    ```sql
+
    SELECT temp.user_id 
    FROM (SELECT u.user_id, COUNT(image_id) as number_of_posts
    FROM QuackstagramDB.image_data id INNER JOIN QuackstagramDB.users u ON id.user_id = u.user_id
    GROUP BY id.user_id) as temp
    ORDER BY temp.number_of_posts DESC
    LIMIT 1
-    ```
+
+   Result:
+
+| user_id |
+|---------|
+|    2    |
+
+
 9. List the top X users with the most followers.
-    ```sql
+
    SELECT temp.user_id
    FROM(SELECT COUNT(follower_id) as number_of_follows, u.user_id
    FROM QuackstagramDB.follows f INNER JOIN QuackstagramDB.users u ON f.followee_id = u.user_id
@@ -384,18 +503,36 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    ORDER BY number_of_follows DESC
    LIMIT X) as temp
    -- X is the number of top users you want to display
-    ```
+
+   Result for X = 5:
+
+| user_id | number_of_follows |
+|---------|-------------------|
+|   322   |         36        |
+|    2    |         2         |
+|    3    |         1         |
+|    4    |         1         |
+|   381   |         1         |
+
+
 10. Find posts that have been liked by all users.
-    ```sql
+
     SELECT image_id
     FROM QuackstagramDB.posts p
     GROUP BY image_id
     HAVING COUNT(p.liker_id) = (SELECT COUNT(*) FROM QuackstagramDB.users);
-    ```
+
+   Result:
+
+| image_id |
+|----------|
+|          |
+
+Note: No posts in our database have been liked by all users
    
 11. Display the most active user.
-   ```sql
-   SELECT post_counts.user_id, posts_count + likes_count AS combined_count
+
+   SELECT post_counts.user_id, posts_count, likes_count, posts_count + likes_count AS combined_count
    FROM (
       SELECT user_id, COUNT(image_data.image_id) AS posts_count
       FROM image_data
@@ -408,17 +545,55 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    ) AS like_counts ON post_counts.user_id = like_counts.user_id
    ORDER BY combined_count DESC
    LIMIT 1;
-   ```
+
+   Result:
+
+| user_id | posts_count | likes_count | combined_count |
+|---------|-------------|-------------|----------------|
+|    1    |      3      |      8      |       11       |
+
+
 12. Find the average number of likes per post for each user.
-   ```sql
+
    SELECT user_id, COUNT(p.image_id) AS total_likes,  AVG((SELECT COUNT(liker_id) FROM posts WHERE image_id = p.image_id)) AS avg_likes
    FROM image_data JOIN posts AS p ON image_data.image_id = p.image_id
    GROUP BY user_id;
-   ```
+
+   Result:
+
+| user_id | total_likes | avg_likes |
+|---------|-------------|-----------|
+|    1    |      2      |   1.0000  |
+|    4    |      4      |   2.0000  |
+|    2    |      8      |   2.0000  |
+|    3    |      4      |   2.0000  |
+
+Note: Only users who have at least one post with at least one like will be in this table
+
 13. Show posts that have more comments than likes.
+
+   SELECT c.image_id, c.comment_count, p.like_count
+   FROM
+   (SELECT image_id, Count(comment_id) as comment_count
+   FROM comments
+   GROUP BY image_id) as c
+   INNER JOIN
+   (SELECT image_id, Count(liker_id) as like_count
+   FROM posts
+   GROUP BY image_id) as p
+   ON c.image_id = p.image_id
+   WHERE c.comment_count > p.like_count;
+
+   Result:
+
+| image_id | comment_count | like_count |
+|----------|---------------|------------|
+| Lorin_1  |       8       |     1      |
+
+
 14. List the users who have liked every post of a specific user.
-   ```sql
-SELECT liker_id
+
+   SELECT liker_id
    FROM posts
    WHERE image_id IN (
       SELECT image_id
@@ -430,10 +605,20 @@ SELECT liker_id
       SELECT COUNT (DISTINCT image_id)
       FROM image_data
       WHERE user_id = X);
-```
+
+   -- X is the user id of the user whose posts you want to check
+
+   Result for X = 4:
+
+| liker_id |
+|----------|
+|    1     |
+|    67    |
+
+
 15. Display the most popular post of each user.
-```sql
-SELECT users.user_id, posts.image_id, COUNT(posts.liker_id) AS like_count
+
+   SELECT users.user_id, posts.image_id, COUNT(posts.liker_id) AS like_count
    FROM posts JOIN image_data ON posts.image_id = image_data.image_id JOIN users ON image_data.user_id = users.user_id
    GROUP BY users.user_id, posts.image_id
    HAVING like_count = (
@@ -443,11 +628,21 @@ SELECT users.user_id, posts.image_id, COUNT(posts.liker_id) AS like_count
          FROM posts p
          WHERE p.image_id = posts.image_id
          GROUP BY p.image_id
-      ) AS inner_query );
-```
+      ) AS selectLikes );
+
+   Result, only taking the first 5 results for the snapshot sorted by most popular:
+
+| user_id | image_id | like_count |
+|---------|----------|------------|
+|    4    | Mystar_1 |     2      |
+|    4    | Mystar_2 |     2      |
+|    2    |  Xylo_1  |     2      |
+|    2    |  Xylo_2  |     2      |
+|    2    |  Xylo_3  |     2      |
+
 
 16. Find the user(s) with the highest ratio of followers to following.
-```sql
+
    SELECT f.user_id, f.followed_by, fc.following, f.followed_by / fc.following AS ratio
    FROM (SELECT followee_id AS user_id, COUNT(follower_id) AS followed_by
       FROM follows
@@ -459,25 +654,45 @@ SELECT users.user_id, posts.image_id, COUNT(posts.liker_id) AS like_count
    ORDER BY ratio DESC
    LIMIT X;
    -- X is the number of users you want to display, for the single user with the highest ratio X will be 1
-  ```
+
+   Result for X = 1:
+
+| user_id | followed_by | following | ratio  |
+|---------|-------------|-----------|--------|
+|   322   |      36     |     24    | 1.5000 |
+
+
 17. Show the month with the highest number of posts made.
-    ```sql
+
     SELECT MONTH(post_time) AS month, COUNT(*) AS post_count
     FROM image_data
     GROUP BY month
     ORDER BY post_count DESC
     LIMIT 1;
-    -- case disregarding the year, only looking at the month 
+    -- case disregarding the year, only looking at the month
 
-    SELECT YEAR(post_time) AS year, MONTH(post_time) AS month, COUNT(*) AS post_count
-    FROM image_data
-    GROUP BY year, month
-    ORDER BY post_count DESC
-    LIMIT 1;
-    -- case taking both the year and month into account
-    ```
+   SELECT YEAR(post_time) AS year, MONTH(post_time) AS month, COUNT(*) AS post_count
+   FROM image_data
+   GROUP BY year, month
+   ORDER BY post_count DESC
+   LIMIT 1;
+   -- case taking both the year and month into account
+
+   Result case 1: 
+
+| month | post_count |
+|-------|------------|
+|   12  |      8     |
+
+   Result case 2: 
+
+| year | month | post_count |
+|------|-------|------------|
+| 2023 |   12  |      8     |
+ 
+
 18. Identify users who have not interacted with a specific user’s posts.
-```sql
+
    SELECT user_id
    FROM users
    WHERE user_id NOT IN
@@ -488,17 +703,50 @@ SELECT users.user_id, posts.image_id, COUNT(posts.liker_id) AS like_count
          FROM image_data
          WHERE user_id = X));
    -- X is the user_id of the user's posts of which you want to check
-  ```
+
+   Result for X = 1, only taking the first 5 results for the snapshot:
+
+| user_id |
+|---------|
+|   501   |
+|   365   |
+|   343   |
+|   375   |
+|   511   |
+
 19. Display the user with the greatest increase in followers in the last X days.
+
+    SELECT followee_id, Count(follower_id) as count
+    FROM follows
+    WHERE follow_time >= NOW() - INTERVAL X DAY
+    GROUP BY followee_id
+    ORDER BY count DESC
+    LIMIT 1;
+   -- X is the number of how many days back you want to check
+
+   Result for X = 10:
+
+| followee_id | count |
+|-------------|-------|
+|      2      |   2   |
+
+
 20. Find users who are followed by more than X% of the platform users.
-```sql
+
    SELECT follows.followee_id as user_id, count(follower_id) as followed_by
    FROM follows INNER JOIN users ON follows.followee_id = users.user_id
    GROUP BY follows.followee_id
    HAVING COUNT(follower_id) > (SELECT Count(*) * X as user_count
    FROM users u);
    -- X is the percent of the users which you want to check, for example for 3% of users, X will be 0.03
-   ```
+
+   Result for X = 0.03:
+
+| user_id | followed_by |
+|---------|-------------|
+|   322   |      36     |
+
+
 ---  
 
 ## Part E – Report
