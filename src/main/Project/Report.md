@@ -90,6 +90,9 @@ Design a relational database schema based on Quackstagram’s features and funct
 #### 3.1.5 Functional Dependencies for `sessions` Table
 - session_id -> user_id
 
+### 3.1.6 Functional Dependencies for `comments` Table
+- comment_id -> user_id, post_id, comment_text, comment_time
+
 ### 3.2 Normalize Tables up to 3NF or BCNF
 
 #### 3.2.1 `users` Table: 3NF
@@ -149,6 +152,19 @@ Design a relational database schema based on Quackstagram’s features and funct
 - Each attribute contains only atomic values -> 1NF
 - All non-prime attributes (user_id) are fully functionally dependent on the primary key (session_id) -> 2NF
 - No non-prime attributes dependent on other non-prime attributes -> 3NF
+
+#### 3.2.4 `comments` Table: 3NF
+- **Attributes:** comment_id, user_id, post_id, comment_text, comment_time
+- **Primary Key:** comment_id
+- **Candidate Key:** comment_id
+- **Prime Attribute:** comment_id
+- **Non-Prime Attributes:** user_id, post_id, comment_text, comment_time
+
+**Proof of 3NF:**
+- Each attribute contains only atomic values -> 1NF
+- All non-prime attributes (user_id, post_id, comment_text, created_at) are fully functionally dependent on the primary key (comment_id) -> 2NF
+- No non-prime attributes are dependent on other non-prime attributes -> 3NF
+
    
 ## 4. ERD  
    
