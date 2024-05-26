@@ -206,49 +206,8 @@ public class QuakstagramHomeUI extends JFrame {
         }
     }
 
-
-    //Writing data into notifications.txt
-    private void recordLikeNotification(String currentUser, String imageOwner, String imageId, Timestamp timestamp) {
-        String notification = String.format("%s; %s; %s; %s\n", imageOwner, currentUser, imageId, timestamp);
-        try (BufferedWriter notificationWriter = Files.newBufferedWriter(Paths.get("src/main/java/data", "notifications.txt"), StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
-            notificationWriter.write(notification);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to record like notification.", e);
-        }
-    }
-
-
     private ArrayList<Image> createSampleData() {
         return ImageDAOImpl.getInstance().fetchFollowedImage(currentUserID);
     }
-
-    private String loadCurrentUser() {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "users.txt"))) {
-            String line = reader.readLine();
-            if (line != null) {
-                return line.split(":")[0].trim();
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to read current user.", e);
-        }
-        return "";
-    }
-
-    private String getFollowedUsers(String currentUser) {
-        StringBuilder followedUsers = new StringBuilder();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "following.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith(currentUser + ":")) {
-                    followedUsers.append(line.split(":")[1].trim());
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to read followed users for user: " + currentUser, e);
-        }
-        return followedUsers.toString();
-    }
-
 
 }

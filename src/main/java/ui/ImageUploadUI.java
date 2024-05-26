@@ -120,7 +120,7 @@ public class ImageUploadUI extends JFrame {
     public void tryFile(){
         File selectedFile = fileChooser.getSelectedFile();
         try {
-            String username = currentUser.getUsername(); // Read username from users.txt
+            String username = currentUser.getUsername();
             int nextImageId = getNextImageId(username);
             String fileExtension = getFileExtension(selectedFile);
             String newFileName = username + "_" + nextImageId + "." + fileExtension;

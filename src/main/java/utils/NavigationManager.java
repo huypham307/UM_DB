@@ -62,18 +62,8 @@ public class NavigationManager {
     private  void openProfileUI() throws SQLException {
        // Open InstagramProfileUI frame
        frame.dispose();
-       String loggedInUsername = "";
 
-        // Read the logged-in user's username from users.txt
-    try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/java/data", "users.txt"))) {
-        String line = reader.readLine();
-        if (line != null) {
-            loggedInUsername = line.split(":")[0].trim();
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-     User user = UserAuthenticator.getInstance().getAuthorizedUser();
+       User user = UserAuthenticator.getInstance().getAuthorizedUser();
        InstagramProfileUI profileUI = new InstagramProfileUI(user);
        profileUI.setVisible(true);
    }
