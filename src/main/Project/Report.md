@@ -186,7 +186,7 @@ Design a relational database schema based on Quackstagram’s features and funct
 | 8        | quack3  | Š4ÇŠ4ÇŠ4Ç      | Bio                               |
 | 9        | quack6  | ŧ5Ëŧ5Ëŧ5Ë      | Bio                               |
 | 10       | quack7  | Š4ÇŠ4ÇŠ4Ç      | Bio                               |
-| 11       | User111 | Š4ÇŠ4ÇŠ4Ç      | Bio1     
+| 11       | User111 | Š4ÇŠ4ÇŠ4Ç      | Bio1                              |
 
 Note: Users from id 108 onward have been created by an LLM, so their corresponding passwords were not encrypted.
 
@@ -199,13 +199,13 @@ Note: Users from id 108 onward have been created by an LLM, so their correspondi
 
 - **Posts (Like Activity Log)**
 
-| Post ID | User ID | Image ID | Timestamp           |
-|---------|---------|----------|---------------------|
-| 62      | 1       | Mystar_1 | 2024-05-11 20:01:19 |
-| 63      | 1       | Mystar_2 | 2024-05-11 20:02:10 |
-| 64      | 1       | Zara_1   | 2024-05-12 15:23:51 |
-| 65      | 1       | Xylo_1   | 2024-05-12 17:00:17 |
-| 66      | 1       | Xylo_2   | 2024-05-12 17:00:18 |
+| Post ID | Liker ID | Image ID | Timestamp           |
+|---------|----------|----------|---------------------|
+| 62      | 1        | Mystar_1 | 2024-05-11 20:01:19 |
+| 63      | 1        | Mystar_2 | 2024-05-11 20:02:10 |
+| 64      | 1        | Zara_1   | 2024-05-12 15:23:51 |
+| 65      | 1        | Xylo_1   | 2024-05-12 17:00:17 |
+| 66      | 1        | Xylo_2   | 2024-05-12 17:00:18 |
 
 - **Sessions**
 
@@ -232,6 +232,13 @@ Note: Users from id 108 onward have been created by an LLM, so their correspondi
 | 7          | 3            | Nice post!                | 2024-05-01 10:30:00   | Lorin_1  |
 | 8          | 4            | This is very informative. | 2024-05-01 10:35:00   | Lorin_1  |
 
+- **Old_images** (Storing deleted posts)
+
+| image_id | user_id | image_bio  | post_time            | file_path                              | delete_time         |
+|----------|---------|------------|----------------------|----------------------------------------|---------------------|
+| Xylo_6   | 2       | caption    | 2024-03-06 10:00:00  | src/main/java/img/uploaded/Xylo_6.jpeg | 2024-05-26 11:29:21 |
+| Zara_3   | 3       | image_bio  | 2024-02-16 13:24:50  | src/main/java/img/uploaded/Zara_3.png  | 2024-05-26 11:32:30 |
+
 
 ---
 
@@ -242,7 +249,7 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
 ## 1. Schema.sql
    The content of this will be included in the schema.sql file.
 
-## 2. View.sql
+## 2. Views.sql
    1. Create 3 Views for User Behavior, Content Popularity, and System Analytics
       1.1 View to display the most active user in a period of time (user who likes more than 5 posts).
          <br/> Rationale: This view will help track user activity and engagement on the platform.
@@ -285,73 +292,96 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
       2.1. Index on `user_id` in `posts` table   
          <br/> Rationale: The fetching process is used frequently in the application. Besides, this fetching requires a join operation with the `users` table, then it is beneficial to have an index on the `user_id` column in the `posts` table.  
          <br/> Performance before indexing: 0.005 seconds  
-         <br/> Performance after indexing: 0.003 seconds, 60% faster.
+         <br/> Performance after indexing: 0.003 seconds, 40% faster.
          
-      2.2. Index on `username` in `users` table   
-         <br/> Rationale: The fetching of the username is used very frequently in the application for numerous functionalities, while account creation is not as often meaning this index will not cause a big trade-off.
-         <br/>   
-         <br/> 
-    - Create 3 Views for User Behavior, Content Popularity, and System Analytics
-        1. View to display the most active user in a period of time (user who likes more than 5 posts).
-           ```sql
-           CREATE VIEW ActiveUsers AS
-           SELECT liker_id, COUNT(*) AS post_count
-           FROM posts
-           WHERE time >= '2024-05-01' AND time <= '2024-05-31'
-           GROUP BY liker_id
-           HAVING COUNT(*) > 5;
-           ```
-        2. View to 5 most liked photos since 2024.
-           ```sql
-           CREATE VIEW five_most_liked_2024 AS
-           SELECT image_id, COUNT(liker_id) as count
-           FROM posts
-           GROUP BY image_id
-           HAVING YEAR(MIN(time)) = 2024
-           ORDER BY count DESC
-           LIMIT 5;
-           ```
-        3. View to number of photos with at least 2 likes for each year.
-           ```sql
-           CREATE VIEW posts_with_2_likes_per_year AS
-           SELECT YEAR(time) as year, Count(image_id) as post_count
-           FROM posts
-           WHERE image_id IN
-              (SELECT image_id
-              FROM posts
-              GROUP BY image_id
-              HAVING COUNT(liker_id) > 2)
-           GROUP BY year;
-           ```
+      2.2. Index on `time` in `posts` table   
+         <br/> Rationale: The fetching of the year is used in the index posts_with_2_likes_per_year and with a bigger database not having an index on it can lead to long fetching time.
+         <br/> Performance before indexing: 0.005 seconds
+         <br/> Performance after indexing: 0.002 seconds, 60% faster.  
 
-## 3. Trigger
 
-- **Triggers to prevent users from liking their posts.** This helps maintain the integrity and consistency of the database.
+## 3. Triggers.sql
+
+Trigger 1 calls check_self_like function; Trigger 2 calls moveToOldImages procedure
+
+1. **Trigger to prevent users from liking their posts.** This helps maintain the integrity and consistency of the database.
   ```sql
   DELIMITER //
 
-  CREATE TRIGGER prevent_self_like
-  BEFORE INSERT
-  ON QuackstagramDB.posts
-  FOR EACH ROW
-  BEGIN
-  DECLARE owner_id INT;
+CREATE TRIGGER prevent_self_like
+    BEFORE INSERT ON QuackstagramDB.posts
+    FOR EACH ROW
+BEGIN
+    IF check_self_like(NEW.user_id, NEW.image_id) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'A user cannot like their own post';
+END IF;
+END //
 
-      SELECT user_id INTO owner_id
-      FROM QuackstagramDB.image_data id 
-      WHERE NEW.image_id = id.image_id;
+DELIMITER ;
+   ```
+- Separating main checking logic to a separate function.
+```sql
+DELIMITER //
 
-      IF NEW.user_id = owner_id THEN
-          SIGNAL SQLSTATE '45000'
-          SET MESSAGE_TEXT = 'A user cannot like their own post';
-      END IF;
-  END;
-  //
+CREATE FUNCTION check_self_like(user_id INT, image_id VARCHAR(32))
+    RETURNS BOOLEAN
+BEGIN
+    DECLARE owner_id INT;
 
-  DELIMITER ;
+SELECT id.user_id INTO owner_id
+FROM QuackstagramDB.image_data id
+WHERE id.image_id = image_id;
+
+RETURN user_id = owner_id;
+END //
+
+DELIMITER ;
    ```
   
-- Stored Procedure to generate report of number of likes and number of posts for each user in a specific month and year.
+2.  **Trigger to move images to a table old_images upon deletion.** This serves as a backup for deleted images and ensures data integrity 
+
+```sql
+    DELIMITER //
+    
+    CREATE TRIGGER before_image_delete
+        BEFORE DELETE ON image_data
+        FOR EACH ROW
+    BEGIN
+        CALL moveToOldImages(
+            OLD.image_id, 
+            OLD.user_id, 
+            OLD.image_bio, 
+            OLD.post_time, 
+            OLD.file_path
+        );
+    END //
+    
+    DELIMITER ;
+   ```
+
+- Stored procedure to insert images to the old_images table
+   ```sql
+    DELIMITER //
+
+    CREATE PROCEDURE moveToOldImages(
+    IN old_image_id VARCHAR(32),
+    IN old_user_id INT,
+    IN old_image_bio TEXT,
+    IN old_post_time DATETIME,
+    IN old_file_path VARCHAR(128)
+    )
+    BEGIN
+    INSERT INTO old_images (image_id, user_id, image_bio, post_time, file_path)
+    VALUES (old_image_id, old_user_id, old_image_bio, old_post_time, old_file_path);
+    END //
+    
+    DELIMITER ;
+    ```
+
+3. **Stored Procedure to generate report of number of likes and number of posts for each user in a specific month and year.**
+
+- 
    ```sql
    DELIMITER //
  
@@ -388,7 +418,6 @@ Develop a MySQL database schema based on the design, and prepare it for integrat
    END //
    DELIMITER ;
    ```
-
 ---
 
 ## Part C – Integration and Functional Application Development
@@ -444,21 +473,21 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
 
 3. Find all comments made on a particular user’s post.
     ```sql
-   SELECT image_id, comment_id
+   SELECT image_id, comment_id, comment_text
    FROM comments
    WHERE image_id IN(
       SELECT image_id
       FROM image_data
       WHERE user_id = X);
    -- X is the user id of the user's posts which you want to check
-   -- case: all comments made on all posts of a particular user
     ```
    Result for X = 4: 
 
-| image_id | comment_id |
-|----------|------------|
-| Mystar_1 |      1     |
-| Mystar_1 |     10     |
+| image_id | comment_id | comment_text                   |
+|----------|------------|--------------------------------|
+| Mystar_1 |     1      | Great post!                    |
+| Mystar_1 |     10     | Looking forward to more posts. |
+
 
 
 4. Display the top X most liked posts.
@@ -487,6 +516,7 @@ Write SQL queries to answer specific questions for Cheapo Technologies.
    FROM QuackstagramDB.posts p
    GROUP BY p.liker_id
 ```
+    
 | liker_id | COUNT(image_id) |
 |----------|-----------------|
 |    1     |        8        |
@@ -576,7 +606,8 @@ Note: Only showing users who have liked at least one post
 |----------|
 |          |
 
-Note: No posts in our database have been liked by all users
+Note: No posts in our database have been liked by all users.
+
    
 11. Display the most active user.
 ```sql
@@ -616,7 +647,8 @@ Note: No posts in our database have been liked by all users
 |    2    |      8      |   2.0000  |
 |    3    |      4      |   2.0000  |
 
-Note: Only users who have at least one post with at least one like will be in this table
+Note: Only users who have at least one post with at least one like will be in this table.
+
 
 13. Show posts that have more comments than likes.
 ```sql
@@ -687,6 +719,8 @@ Note: Only users who have at least one post with at least one like will be in th
 |    2    |  Xylo_1  |     2      |
 |    2    |  Xylo_2  |     2      |
 |    2    |  Xylo_3  |     2      |
+
+Note: if multiple posts of a user have the same highest amount of likes, both will appear in the table
 
 
 16. Find the user(s) with the highest ratio of followers to following.
