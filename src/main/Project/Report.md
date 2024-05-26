@@ -95,6 +95,7 @@ Design a relational database schema based on Quackstagram’s features and funct
 #### 3.2.1 `users` Table: 3NF
 - **Attributes:** user_id, username, password, bio
 - **Primary Key:** user_id
+- **Non-prime attribute:** username, password, bio 
 
 **Proof of 3NF:**
 - Each attribute contains only atomic values -> 1NF
@@ -104,7 +105,7 @@ Design a relational database schema based on Quackstagram’s features and funct
 #### 3.2.2 `posts` Table: 3NF
 - **Attributes:** post_id, liker_id, image_id, timestamp
 - **Primary Key:** post_id
-- **Candidate Key:** post_id, liker_id, image_id
+- **Candidate Key:** post_id, liker_id and image_id
 - **Prime Attributes:** post_id, liker_id, image_id
 - **Non-Prime Attribute:** timestamp
 
